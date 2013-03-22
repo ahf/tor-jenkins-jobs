@@ -40,3 +40,5 @@
             url: 'https://git.torproject.org/tor.git'
     builders: 
         - shell: "/home/weasel/build-wrap"
+    triggers:
+        - pollscm: "*/10 * * * *"

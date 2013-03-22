@@ -34,7 +34,7 @@
 
 # our actual projects
 - job:
-    name: tor-ci
+    name: tor-ci-linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

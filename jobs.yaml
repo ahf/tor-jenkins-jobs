@@ -24,6 +24,12 @@
             values:
                 - squeeze
                 - wheezy
+                - lucid 
+                - natty 
+                - oneiric 
+                - precise 
+                - quantal 
+                - sid
     logrotate:
         daysToKeep: -1
         numToKeep: 5
@@ -42,6 +48,6 @@
                 - master
                 - maint-0.2.*
     builders: 
-        - shell: "/home/weasel/build-wrap"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"

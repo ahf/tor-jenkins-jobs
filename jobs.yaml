@@ -38,6 +38,9 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+                - maint-0.2.*
     builders: 
         - shell: "/home/weasel/build-wrap"
     triggers:

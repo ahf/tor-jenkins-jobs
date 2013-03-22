@@ -1,0 +1,42 @@
+- defaults:
+    name: global
+    description: 'Do not edit this job through the web'
+    project-type: matrix
+    scm: 
+       - git:
+           url: "{git-url}"
+           basedir: source
+    execution-strategy:
+        sequential: true
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - squeeze
+                - amd64
+    logrotate:
+        daysToKeep: -1
+        numToKeep: 5
+        artifactDaysToKeep: -1
+        artifactNumToKeep: -1
+    wrappers:
+        - timestamps
+
+# our actual projects
+- job:
+    name: tor-ci
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+    builders: 
+        - shell: "/home/weasel/build-wrap"

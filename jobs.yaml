@@ -41,6 +41,7 @@
 # our actual projects
 - job:
     name: tor-ci-linux
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -49,5 +50,58 @@
                 - maint-0.2.*
     builders: 
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor/build-wrapper"
+    triggers:
+        - pollscm: "*/10 * * * *"
+    publishers:
+        - archive:
+            artifacts: "src/or/tor"
+
+# our actual projects
+- job:
+    name: stem-ci-linux
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/stem.git'
+            branches:
+                - master
+    builders: 
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/stem/build-wrapper"
+    triggers:
+        - pollscm: "*/10 * * * *"
+
+- job:
+    name: tor-ci-stem-base
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+    builders:
+        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/tor/build-wrapper"
+    triggers:
+        - pollscm: "*/10 * * * *"
+    publishers:
+        - archive:
+            artifacts: "src/or/tor"
+        - trigger:
+            project: tor-stem-ci
+
+- job:
+    name: tor-stem-ci
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/stem.git'
+            branches:
+                - master
+    builders: 
+        - copyartifact:
+            project: tor-ci-stem-base
+            which-build: "last-successful"
+        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/stem-tor-ci/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"

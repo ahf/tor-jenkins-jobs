@@ -55,8 +55,6 @@
     publishers:
         - archive:
             artifacts: "src/or/tor"
-        - trigger:
-            project: tor-ci-linux-clang
 - job:
     name: tor-ci-linux-clang
     project-type: matrix

@@ -58,7 +58,7 @@
         - trigger:
             project: tor-ci-linux-clang
 - job:
-    name: tor-stem-ci-clang
+    name: tor-ci-linux-clang
     project-type: freestyle
     node: Linux
     scm:

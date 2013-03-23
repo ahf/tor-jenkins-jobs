@@ -49,7 +49,7 @@
                 - master
                 - maint-0.2.*
     builders: 
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor/build-wrapper"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"
     publishers:
@@ -80,7 +80,7 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/tor/build-wrapper"
+        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"
     publishers:

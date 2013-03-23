@@ -55,6 +55,22 @@
     publishers:
         - archive:
             artifacts: "src/or/tor"
+        - trigger:
+            project: tor-ci-linux-clang
+- job:
+    name: tor-stem-ci-clang
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/stem.git'
+            branches:
+                - master
+                - maint-0.2.*
+    builders:
+        - shell: "SUITE=sid ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    triggers:
+        - pollscm: "*/10 * * * *"
 
 # our actual projects
 - job:

@@ -59,7 +59,14 @@
             project: tor-ci-linux-clang
 - job:
     name: tor-ci-linux-clang
-    project-type: freestyle
+    project-type: matrix
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
     node: Linux
     scm:
         - git:
@@ -68,7 +75,7 @@
                 - master
                 - maint-0.2.*
     builders:
-        - shell: "SUITE=sid ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=sid /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"
 

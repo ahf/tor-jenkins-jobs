@@ -47,7 +47,8 @@
             url: 'https://git.torproject.org/tor.git'
             branches:
                 - master
-                - maint-0.2.*
+                - maint-0.2.3
+                - maint-0.2.4
     builders: 
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
@@ -71,7 +72,8 @@
             url: 'https://git.torproject.org/tor.git'
             branches:
                 - master
-                - maint-0.2.*
+                - maint-0.2.3
+                - maint-0.2.4
     builders:
         - shell: "SUITE=sid /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:

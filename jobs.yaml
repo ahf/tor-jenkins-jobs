@@ -149,7 +149,7 @@
         - pollscm: "20 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT.tar.gz"
+            artifacts: "RESULT-libevent.tar.gz"
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -165,7 +165,7 @@
         - pollscm: "25 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT.tar.gz"
+            artifacts: "RESULT-openssl.tar.gz"
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -181,4 +181,4 @@
         - pollscm: "30 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT.tar.gz"
+            artifacts: "RESULT-zlib.tar.gz"

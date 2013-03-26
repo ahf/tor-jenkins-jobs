@@ -126,6 +126,11 @@
             project: tor-ci-stem-base
             which-build: "last-successful"
         - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - email-ext:
+                recipients: atagar@torproject.org
+                subject: Build ${BUILD_NUMBER} of tor-stem-ci failed - log attached
+                body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
     triggers:
         - pollscm: "*/10 * * * *"
 

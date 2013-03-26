@@ -78,6 +78,33 @@
         - shell: "SUITE=sid /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"
+- job:
+    name: tor-ci-windows
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+                - maint-0.2.3
+                - maint-0.2.4
+    builders:
+        - copyartifact:
+            project: extern-windows-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    triggers:
+        - pollscm: "*/10 * * * *"
+    publishers:
+        - archive:
+            artifacts: "RESULT-tor.tar.gz"
 
 # our actual projects
 - job:
@@ -150,6 +177,8 @@
     publishers:
         - archive:
             artifacts: "RESULT-libevent.tar.gz"
+        - trigger:
+            project: tor-ci-windows
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -166,6 +195,8 @@
     publishers:
         - archive:
             artifacts: "RESULT-openssl.tar.gz"
+        - trigger:
+            project: tor-ci-windows
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -182,3 +213,5 @@
     publishers:
         - archive:
             artifacts: "RESULT-zlib.tar.gz"
+        - trigger:
+            project: tor-ci-windows

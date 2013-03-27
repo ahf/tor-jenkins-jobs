@@ -104,7 +104,7 @@
         - pollscm: "*/10 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT-tor.tar.gz"
+            artifacts: "RESULT.tor.tar.gz"
 
 # our actual projects
 - job:
@@ -176,7 +176,7 @@
         - pollscm: "20 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT-libevent.tar.gz"
+            artifacts: "RESULT.libevent.tar.gz"
         - trigger:
             project: tor-ci-windows
 - job:
@@ -194,7 +194,10 @@
         - pollscm: "25 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT-openssl.tar.gz"
+            artifacts: "RESULT.openssl.tar.gz"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
         - trigger:
             project: tor-ci-windows
 - job:
@@ -212,6 +215,6 @@
         - pollscm: "30 * * * *"
     publishers:
         - archive:
-            artifacts: "RESULT-zlib.tar.gz"
+            artifacts: "RESULT.zlib.tar.gz"
         - trigger:
-            project: tor-ci-windows
+            project: extern-windows-openssl

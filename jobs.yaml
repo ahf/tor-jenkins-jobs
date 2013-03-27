@@ -65,7 +65,7 @@
             name: ARCHITECTURE
             values:
                 - amd64
-                - i386
+                #- i386
     node: Linux
     scm:
         - git:

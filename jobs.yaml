@@ -206,12 +206,19 @@
     name: extern-windows-qt
     project-type: freestyle
     node: windows
-    #scm:
+    scm:
+        - none:
     #    - git:
     #        url: 'https://git.torproject.org/extern/zlib.git'
     #        branches:
     #            - master
     builders:
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
     #triggers:
     #    - pollscm: "30 * * * *"

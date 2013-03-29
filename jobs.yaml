@@ -2,6 +2,7 @@
     name: global
     description: 'Do not edit this job through the web'
     project-type: matrix
+    block-upstream: true
     scm:
        - git:
            url: "{git-url}"

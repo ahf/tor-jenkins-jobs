@@ -142,7 +142,7 @@
         - pollscm: "*/10 * * * *"
 
 - job:
-    name: tor-ci-stem-base
+    name: stem-tor-ci-base
     project-type: freestyle
     node: Linux
     scm:
@@ -158,10 +158,10 @@
         - archive:
             artifacts: "src/or/tor"
         - trigger:
-            project: tor-stem-ci
+            project: stem-tor-ci
 
 - job:
-    name: tor-stem-ci
+    name: stem-tor-ci
     project-type: freestyle
     node: Linux
     scm:
@@ -171,13 +171,13 @@
                 - master
     builders:
         - copyartifact:
-            project: tor-ci-stem-base
+            project: stem-tor-ci-base
             which-build: "last-successful"
         - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - email-ext:
                 recipients: atagar@torproject.org
-                subject: Build ${BUILD_NUMBER} of tor-stem-ci failed - log attached
+                subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
     triggers:
         - pollscm: "*/10 * * * *"

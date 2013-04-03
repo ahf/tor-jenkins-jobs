@@ -38,6 +38,11 @@
         artifactNumToKeep: -1
     wrappers:
         - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
+        - matrixtieparent:
+            labelname: master
 
 # our actual projects
 - job:
@@ -106,6 +111,11 @@
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 
 # vidalia
 - job:
@@ -141,6 +151,11 @@
     publishers:
         - archive:
             artifacts: "RESULT.vidalia.tar.gz"
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 
 # our actual projects
 - job:
@@ -174,6 +189,11 @@
             artifacts: "src/or/tor"
         - trigger:
             project: stem-tor-ci
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 
 - job:
     name: stem-tor-ci
@@ -196,6 +216,11 @@
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
     triggers:
         - pollscm: "*/10 * * * *"
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 
 - job:
     name: extern-windows-libevent
@@ -215,6 +240,11 @@
             artifacts: "RESULT.libevent.tar.gz"
         - trigger:
             project: tor-ci-windows
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -238,6 +268,11 @@
             project: tor-ci-windows
         - trigger:
             project: extern-windows-qt
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 - job:
     name: extern-windows-qt
     project-type: freestyle
@@ -263,6 +298,11 @@
             artifacts: "RESULT.qt.tar.gz"
         - trigger:
             project: vidalia-ci-windows
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -283,3 +323,8 @@
             project: extern-windows-openssl
         - trigger:
             project: extern-windows-qt
+    wrappers:
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true

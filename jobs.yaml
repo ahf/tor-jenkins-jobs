@@ -107,6 +107,21 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
 
+# vidalia
+- job:
+    name: vidalia-ci-linux
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/vidalia.git'
+            branches:
+                - master
+                - maint-0.2.3
+                - maint-0.2.4
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    triggers:
+        - pollscm: "*/10 * * * *"
 - job:
     name: vidalia-ci-windows
     project-type: freestyle

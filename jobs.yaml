@@ -68,11 +68,15 @@
     axes:
         - axis:
             type: label-expression
+            name: OS
+            values:
+                - Linux
+        - axis:
+            type: label-expression
             name: ARCHITECTURE
             values:
                 - amd64
                 #- i386
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

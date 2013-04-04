@@ -68,7 +68,7 @@
     execution-strategy:
         sequential: true
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE="sid")'
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="sid")'
             result: stable
         combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
     axes:

@@ -74,16 +74,16 @@
     axes:
         - axis:
             type: label-expression
-            name: SUITE
-            values:
-                - sid
-                - experimental
-        - axis:
-            type: label-expression
             name: ARCHITECTURE
             values:
                 - amd64
                 - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+                - experimental
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

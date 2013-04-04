@@ -65,18 +65,25 @@
 - job:
     name: tor-ci-linux-clang
     project-type: matrix
+    execution-strategy:
+        sequential: true
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE="sid")'
+            result: stable
+        combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
     axes:
         - axis:
             type: label-expression
-            name: OS
+            name: SUITE
             values:
-                - Linux
+                - sid
+                - experimental
         - axis:
             type: label-expression
             name: ARCHITECTURE
             values:
                 - amd64
-                #- i386
+                - i386
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -85,7 +92,7 @@
                 - maint-0.2.3
                 - maint-0.2.4
     builders:
-        - shell: "SUITE=sid /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     triggers:
         - pollscm: "*/10 * * * *"
 - job:

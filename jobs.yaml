@@ -244,8 +244,6 @@
                 - master
     builders:
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    triggers:
-        - pollscm: "20 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.libevent.tar.gz"
@@ -270,8 +268,6 @@
             project: extern-windows-zlib
             which-build: "last-successful"
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    triggers:
-        - pollscm: "25 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.openssl.tar.gz"
@@ -302,8 +298,6 @@
             project: extern-windows-zlib
             which-build: "last-successful"
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    #triggers:
-    #    - pollscm: "30 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.qt.tar.gz"
@@ -325,8 +319,6 @@
                 - master
     builders:
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    triggers:
-        - pollscm: "30 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.zlib.tar.gz"

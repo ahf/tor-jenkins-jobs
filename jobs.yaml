@@ -232,6 +232,42 @@
         - timeout:
             timeout: 600
             fail: true
+# pyobfsproxy and friends
+- job:
+    name: pyptlib-ci-linux
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/pluggable-transports/pyptlib'
+            branches:
+                - master
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    triggers:
+        - pollscm: "*/20 * * * *"
+    publishers:
+        - archive:
+            artifacts: "RESULT.pyptlib.tar.gz"
+        - trigger:
+            project: pyobfsproxy-ci-linux
+- job:
+    name: pyobfsproxy-ci-linux
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/pluggable-transports/pyobfsproxy'
+            branches:
+                - master
+                - test_2_021
+    builders:
+        - copyartifact:
+            project: pyptlib-ci-linux
+            which-build: "last-successful"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    triggers:
+        - pollscm: "*/20 * * * *"
 
 - job:
     name: extern-windows-libevent

@@ -292,10 +292,10 @@
     node: windows
     scm:
         - none:
-    #    - git:
-    #        url: 'https://git.torproject.org/extern/zlib.git'
-    #        branches:
-    #            - master
+        - git:
+            url: 'https://git.torproject.org/extern/qt.git'
+            branches:
+                - master
     builders:
         - copyartifact:
             project: extern-windows-openssl

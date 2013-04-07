@@ -291,7 +291,6 @@
     project-type: freestyle
     node: windows
     scm:
-        - none:
         - git:
             url: 'https://git.torproject.org/extern/qt.git'
             branches:

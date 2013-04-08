@@ -91,8 +91,6 @@
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/10 * * * *"
 - job:
     name: tor-ci-windows
     project-type: freestyle
@@ -115,8 +113,6 @@
             project: extern-windows-zlib
             which-build: "last-successful"
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    triggers:
-        - pollscm: "*/10 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
@@ -134,8 +130,6 @@
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/10 * * * *"
 - job:
     name: vidalia-ci-windows
     project-type: freestyle
@@ -150,8 +144,6 @@
             project: extern-windows-qt
             which-build: "last-successful"
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    triggers:
-        - pollscm: "*/10 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.vidalia.tar.gz"
@@ -167,8 +159,6 @@
                 - master
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/10 * * * *"
 
 - job:
     name: stem-tor-ci-base
@@ -181,8 +171,6 @@
                 - master
     builders:
         - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/10 * * * *"
     publishers:
         - archive:
             artifacts: "src/or/tor"
@@ -208,8 +196,6 @@
                 recipients: atagar@torproject.org
                 subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
-    triggers:
-        - pollscm: "*/10 * * * *"
 # pyobfsproxy and friends
 - job:
     name: pyptlib-ci-linux
@@ -222,8 +208,6 @@
                 - master
     builders:
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/20 * * * *"
     publishers:
         - archive:
             artifacts: "RESULT.pyptlib.tar.gz"
@@ -244,8 +228,6 @@
             project: pyptlib-ci-linux
             which-build: "last-successful"
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/20 * * * *"
 
 - job:
     name: extern-windows-libevent

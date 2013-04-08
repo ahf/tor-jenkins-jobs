@@ -57,8 +57,6 @@
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    triggers:
-        - pollscm: "*/10 * * * *"
     publishers:
         - archive:
             artifacts: "src/or/tor"

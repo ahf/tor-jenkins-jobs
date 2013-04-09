@@ -117,6 +117,27 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
 
+- job:
+    name: tor-debian-master-nightly-source
+    project-type: freestyle
+    node: wheezy
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+            basedir: tor
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            branches:
+                - master
+            basedir: debian-tor
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+
 # vidalia
 - job:
     name: vidalia-ci-linux

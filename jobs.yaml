@@ -137,6 +137,8 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-master-nightly-binaries
 - job:
     name: tor-debian-master-nightly-binaries
     node: Linux

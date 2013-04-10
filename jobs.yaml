@@ -148,6 +148,8 @@
         - workspace-cleanup:
             include:
               - "**"
+        - matrixtieparent:
+            labelname: master
     builders:
         - copyartifact:
             project: tor-debian-master-nightly-source

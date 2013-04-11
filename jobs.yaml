@@ -161,6 +161,50 @@
         - archive:
             artifacts: "RESULT/*"
 
+- job:
+    name: tor-debian-0.2.4-nightly-source
+    project-type: freestyle
+    node: wheezy
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - maint-0.2.4
+                - release-0.2.4
+            basedir: tor
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            branches:
+                - debian-0.2.4
+            basedir: debian-tor
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-0.2.4-nightly-binaries
+- job:
+    name: tor-debian-0.2.4-nightly-binaries
+    node: Linux
+    scm:
+        - none:
+    wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
+        - matrixtieparent:
+            labelname: master
+    builders:
+        - copyartifact:
+            project: tor-debian-0.2.4-nightly-source
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
 # vidalia
 - job:
     name: vidalia-ci-linux

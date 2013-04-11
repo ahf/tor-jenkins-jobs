@@ -162,7 +162,7 @@
             artifacts: "RESULT/*"
 
 - job:
-    name: tor-debian-0.2.4-nightly-source
+    name: tor-debian-024-nightly-source
     project-type: freestyle
     node: wheezy
     scm:
@@ -183,9 +183,9 @@
         - archive:
             artifacts: "RESULT/*"
         - trigger:
-            project: tor-debian-0.2.4-nightly-binaries
+            project: tor-debian-024-nightly-binaries
 - job:
-    name: tor-debian-0.2.4-nightly-binaries
+    name: tor-debian-024-nightly-binaries
     node: Linux
     scm:
         - none:
@@ -197,7 +197,7 @@
             labelname: master
     builders:
         - copyartifact:
-            project: tor-debian-0.2.4-nightly-source
+            project: tor-debian-024-nightly-source
             which-build: "last-successful"
             flatten: true
             target: incoming

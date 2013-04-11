@@ -68,7 +68,7 @@
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="sid")'
             result: stable
-        combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
     axes:
         - axis:
             type: label-expression

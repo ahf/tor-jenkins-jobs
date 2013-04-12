@@ -102,6 +102,15 @@
                 - master
                 - maint-0.2.3
                 - maint-0.2.4
+            basedir: tor
+    wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
     builders:
         - copyartifact:
             project: extern-windows-libevent
@@ -150,6 +159,10 @@
               - "**"
         - matrixtieparent:
             labelname: master
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
     builders:
         - copyartifact:
             project: tor-debian-master-nightly-source
@@ -195,6 +208,10 @@
               - "**"
         - matrixtieparent:
             labelname: master
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
     builders:
         - copyartifact:
             project: tor-debian-024-nightly-source

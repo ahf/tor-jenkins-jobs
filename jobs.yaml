@@ -166,7 +166,7 @@
     builders:
         - copyartifact:
             project: tor-debian-master-nightly-source
-            which-build: "last-successful"
+            which-build: "upstream-build"
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
@@ -215,7 +215,7 @@
     builders:
         - copyartifact:
             project: tor-debian-024-nightly-source
-            which-build: "last-successful"
+            which-build: "upstream-build"
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"

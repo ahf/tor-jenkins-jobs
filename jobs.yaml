@@ -301,7 +301,7 @@
                 recipients: atagar@torproject.org
                 subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
-# pyobfsproxy and friends
+# obfsproxy and friends
 - job:
     name: pyptlib-ci-linux
     project-type: freestyle
@@ -317,14 +317,14 @@
         - archive:
             artifacts: "RESULT.pyptlib.tar.gz"
         - trigger:
-            project: pyobfsproxy-ci-linux
+            project: obfsproxy-ci-linux
 - job:
-    name: pyobfsproxy-ci-linux
+    name: obfsproxy-ci-linux
     project-type: freestyle
     node: Linux
     scm:
         - git:
-            url: 'https://git.torproject.org/pluggable-transports/pyobfsproxy'
+            url: 'https://git.torproject.org/pluggable-transports/obfsproxy'
             branches:
                 - master
                 - test_2_021

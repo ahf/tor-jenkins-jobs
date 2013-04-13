@@ -173,7 +173,7 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side-"
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
 - job:
     name: tor-debian-024-nightly-source
@@ -228,7 +228,7 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side-"
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 # vidalia
 - job:
     name: vidalia-ci-linux

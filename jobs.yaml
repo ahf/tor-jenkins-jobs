@@ -37,6 +37,9 @@
         artifactDaysToKeep: -1
         artifactNumToKeep: -1
     wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
         - timestamps
         - timeout:
             timeout: 600
@@ -103,14 +106,6 @@
                 - maint-0.2.3
                 - maint-0.2.4
             basedir: tor
-    wrappers:
-        - workspace-cleanup:
-            include:
-              - "**"
-        - timestamps
-        - timeout:
-            timeout: 600
-            fail: true
     builders:
         - copyartifact:
             project: extern-windows-libevent
@@ -153,16 +148,6 @@
     node: Linux
     scm:
         - none:
-    wrappers:
-        - workspace-cleanup:
-            include:
-              - "**"
-        - matrixtieparent:
-            labelname: master
-        - timestamps
-        - timeout:
-            timeout: 600
-            fail: true
     builders:
         - copyartifact:
             project: tor-debian-master-nightly-source
@@ -181,14 +166,6 @@
     node: master
     scm:
         - none
-    wrappers:
-        - workspace-cleanup:
-            include:
-              - "**"
-        - timestamps
-        - timeout:
-            timeout: 600
-            fail: true
     builders:
         - shell: 'true'
         - copyartifact:
@@ -226,16 +203,6 @@
     node: Linux
     scm:
         - none:
-    wrappers:
-        - workspace-cleanup:
-            include:
-              - "**"
-        - matrixtieparent:
-            labelname: master
-        - timestamps
-        - timeout:
-            timeout: 600
-            fail: true
     builders:
         - copyartifact:
             project: tor-debian-024-nightly-source
@@ -254,14 +221,6 @@
     node: master
     scm:
         - none
-    wrappers:
-        - workspace-cleanup:
-            include:
-              - "**"
-        - timestamps
-        - timeout:
-            timeout: 600
-            fail: true
     builders:
         - shell: 'true'
         - copyartifact:

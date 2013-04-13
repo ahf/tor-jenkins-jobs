@@ -173,6 +173,30 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-master-nightly-install
+- job:
+    name: tor-debian-master-nightly-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-master-nightly-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side-"
 
 - job:
     name: tor-debian-024-nightly-source
@@ -222,6 +246,30 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-024-nightly-install
+- job:
+    name: tor-debian-024-nightly-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-024-nightly-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side-"
 # vidalia
 - job:
     name: vidalia-ci-linux

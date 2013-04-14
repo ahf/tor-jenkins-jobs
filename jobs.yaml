@@ -154,7 +154,6 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-            fallback-to-last-successful: true
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
     publishers:
         - archive:
@@ -174,7 +173,6 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-            fallback-to-last-successful: true
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
 - job:
@@ -211,7 +209,6 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-            fallback-to-last-successful: true
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
     publishers:
         - archive:
@@ -231,7 +228,6 @@
             which-build: "upstream-build"
             flatten: true
             target: incoming
-            fallback-to-last-successful: true
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 # vidalia
 - job:

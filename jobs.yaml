@@ -229,6 +229,26 @@
             flatten: true
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
+- job:
+    name: tor-debian-release-source
+    project-type: freestyle
+    parameters:
+        - string:
+            name: "DEBIAN_VERSION"
+            description: "debian version to build"
+    node: wheezy
+    scm:
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            basedir: debian
+        - git:
+            url: 'https://git.torproject.org/debian/tor-pristine-upstream.git'
+            basedir: pristine-upstream
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
 # vidalia
 - job:
     name: vidalia-ci-linux

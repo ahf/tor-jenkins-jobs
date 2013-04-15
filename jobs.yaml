@@ -241,11 +241,32 @@
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
             basedir: debian
+            branches:
+                - "master"
         - git:
             url: 'https://git.torproject.org/debian/tor-pristine-upstream.git'
             basedir: pristine-upstream
+            branches:
+                - "master"
     builders:
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-release-binaries
+- job:
+    name: tor-debian-release-binaries
+    node: Linux
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-debian-release-source
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
     publishers:
         - archive:
             artifacts: "RESULT/*"

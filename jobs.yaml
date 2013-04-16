@@ -48,6 +48,9 @@
             labelname: master
 
 # our actual projects
+###############################################################
+### tor
+###############################################################
 - job:
     name: tor-ci-linux
     node: Linux
@@ -270,7 +273,9 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
-# vidalia
+###############################################################
+### vidalia
+###############################################################
 - job:
     name: vidalia-ci-linux
     node: Linux
@@ -301,7 +306,9 @@
         - archive:
             artifacts: "RESULT.vidalia.tar.gz"
 
-# our actual projects
+###############################################################
+### stem
+###############################################################
 - job:
     name: stem-ci-linux
     node: Linux
@@ -349,7 +356,9 @@
                 recipients: atagar@torproject.org
                 subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
-# obfsproxy and friends
+###############################################################
+### obfsproxy and friends
+###############################################################
 - job:
     name: pyptlib-ci-linux
     project-type: freestyle
@@ -382,6 +391,9 @@
             which-build: "last-successful"
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
+###############################################################
+### external libraries
+###############################################################
 - job:
     name: extern-windows-libevent
     project-type: freestyle

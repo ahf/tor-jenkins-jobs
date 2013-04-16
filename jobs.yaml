@@ -149,6 +149,12 @@
 - job:
     name: tor-debian-master-nightly-binaries
     node: Linux
+    execution-strategy:
+        sequential: true
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            result: stable
+        combination-filter: '(SUITE!="lucid")'
     scm:
         - none:
     builders:

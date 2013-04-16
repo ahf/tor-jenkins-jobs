@@ -274,6 +274,19 @@
         - archive:
             artifacts: "RESULT/*"
 ###############################################################
+### tlsdate
+###############################################################
+- job:
+    name: tlsdate-ci-linux
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tlsdate.git'
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+###############################################################
 ### vidalia
 ###############################################################
 - job:

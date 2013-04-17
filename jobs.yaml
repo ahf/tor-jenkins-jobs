@@ -124,6 +124,7 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
 
+#### nightly .debs: master
 - job:
     name: tor-debian-master-nightly-source
     project-type: freestyle
@@ -184,6 +185,7 @@
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
+#### nightly .debs: 0.2.4.x
 - job:
     name: tor-debian-024-nightly-source
     project-type: freestyle
@@ -238,6 +240,7 @@
             flatten: true
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
+#### .debs: release builds
 - job:
     name: tor-debian-release-source
     project-type: freestyle
@@ -279,6 +282,22 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-release-install
+- job:
+    name: tor-debian-release-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-release-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 ###############################################################
 ### tlsdate
 ###############################################################

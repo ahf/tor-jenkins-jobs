@@ -312,6 +312,19 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 ###############################################################
+### torsocks
+###############################################################
+- job:
+    name: torsocks-ci-linux
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/torsocks.git'
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+###############################################################
 ### vidalia
 ###############################################################
 - job:

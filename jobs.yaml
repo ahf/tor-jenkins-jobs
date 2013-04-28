@@ -25,12 +25,13 @@
             values:
                 - squeeze
                 - wheezy
+                - sid
                 - lucid
                 - natty
                 - oneiric
                 - precise
                 - quantal
-                - sid
+                - raring
     logrotate:
         daysToKeep: -1
         numToKeep: 5

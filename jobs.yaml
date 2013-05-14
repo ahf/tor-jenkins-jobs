@@ -355,6 +355,66 @@
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 ###############################################################
+### libevent
+###############################################################
+- job:
+    name: libevent-master-ci-linux
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/libevent.git'
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper CONFIGURE_VERBOSE_DEBUG CONFIGURE_THREAD_SUPPORT CONFIGURE_MALLOC_REPLACEMENT CONFIGURE_OPENSSL CONFIGURE_DEBUG_MODE"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy" && CONFIGURE_VERBOSE_DEBUG=="yes-verbose-debug" && CONFIGURE_THREAD_SUPPORT=="yes-thread-support" && CONFIGURE_MALLOC_REPLACEMENT=="yes-malloc-replacement" && CONFIGURE_OPENSSL=="yes-openssl" && CONFIGURE_DEBUG_MODE=="yes-debug-mode" )'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - wheezy
+        - axis:
+            type: text
+            name: CONFIGURE_VERBOSE_DEBUG
+            values:
+                - yes-verbose-debug
+                - no-verbose-debug
+        - axis:
+            type: text
+            name: CONFIGURE_THREAD_SUPPORT
+            values:
+                - yes-thread-support
+                - no-thread-support
+        - axis:
+            type: text
+            name: CONFIGURE_MALLOC_REPLACEMENT
+            values:
+                - yes-malloc-replacement
+                - no-malloc-replacement
+        - axis:
+            type: text
+            name: CONFIGURE_OPENSSL
+            values:
+                - yes-openssl
+                - no-openssl
+        - axis:
+            type: text
+            name: CONFIGURE_DEBUG_MODE
+            values:
+                - yes-debug-mode
+                - no-debug-mode
+###############################################################
 ### tlsdate
 ###############################################################
 - job:

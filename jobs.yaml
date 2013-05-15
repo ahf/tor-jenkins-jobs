@@ -362,7 +362,7 @@
     node: Linux
     scm:
         - git:
-            url: 'https://git.torproject.org/extern/libevent.git'
+            url: 'https://git.torproject.org/mirror/libevent.git'
             branches:
                 - master
     builders:
@@ -419,7 +419,7 @@
     node: Linux
     scm:
         - git:
-            url: 'https://git.torproject.org/extern/libevent.git'
+            url: 'https://git.torproject.org/mirror/libevent.git'
             branches:
                 - master
     builders:

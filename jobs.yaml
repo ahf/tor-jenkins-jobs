@@ -87,7 +87,7 @@
             name: SUITE
             values:
                 - sid
-                - experimental
+                #- experimental
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

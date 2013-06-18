@@ -526,6 +526,12 @@
             url: 'https://git.torproject.org/stem.git'
             branches:
                 - master
+    execution-strategy:
+        sequential: true
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            result: stable
+        combination-filter: '(SUITE!="sqeeze" && SUITE!="lucid" && SUITE!="oneiric" && SUITE!="precise")'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
@@ -539,7 +545,7 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "src/or/tor"
@@ -559,7 +565,7 @@
         - copyartifact:
             project: stem-tor-ci-base
             which-build: "last-successful"
-        - shell: "SUITE=squeeze ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - email-ext:
                 recipients: atagar@torproject.org

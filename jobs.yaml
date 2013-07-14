@@ -46,6 +46,27 @@
             fail: true
         - matrixtieparent:
             labelname: master
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 
 # our actual projects
 ###############################################################
@@ -143,6 +164,26 @@
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 
 #### nightly .debs: master
 - job:
@@ -167,6 +208,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-master-nightly-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-master-nightly-binaries
     node: Linux
@@ -190,6 +251,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-master-nightly-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-master-nightly-install
     project-type: freestyle
@@ -229,6 +310,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-024-nightly-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-024-nightly-binaries
     node: Linux
@@ -246,6 +347,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-024-nightly-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-024-nightly-install
     project-type: freestyle
@@ -284,6 +405,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-023-nightly-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-023-nightly-binaries
     node: Linux
@@ -301,6 +442,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-023-nightly-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-023-nightly-install
     project-type: freestyle
@@ -342,6 +503,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-release-binaries
     node: Linux
@@ -359,6 +540,26 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-debian-release-install
     project-type: freestyle
@@ -433,23 +634,6 @@
             values:
                 - yes-debug-mode
                 - no-debug-mode
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Announce or
-                body: $DEFAULT_SUBJECT
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
 - job:
     name: libevent-master-ci-windows
     node: Linux
@@ -481,6 +665,26 @@
             artifacts: "test/*.exe, test/test.sh"
         - trigger:
             project: libevent-master-ci-windows-test
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: libevent-master-ci-windows-test
     project-type: freestyle
@@ -551,6 +755,26 @@
     publishers:
         - archive:
             artifacts: "RESULT.vidalia.tar.gz"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 
 ###############################################################
 ### stem
@@ -588,6 +812,26 @@
             artifacts: "src/or/tor"
         - trigger:
             project: stem-tor-ci
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 
 - job:
     name: stem-tor-ci
@@ -627,6 +871,26 @@
             artifacts: "RESULT.pyptlib.tar.gz"
         - trigger:
             project: obfsproxy-ci-linux
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
@@ -662,6 +926,26 @@
             artifacts: "RESULT.libevent.tar.gz"
         - trigger:
             project: tor-ci-windows
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -683,6 +967,26 @@
             project: tor-ci-windows
         - trigger:
             project: extern-windows-qt
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: extern-windows-qt
     project-type: freestyle
@@ -705,6 +1009,26 @@
             artifacts: "RESULT.qt.tar.gz"
         - trigger:
             project: vidalia-ci-windows
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -723,3 +1047,23 @@
             project: extern-windows-openssl
         - trigger:
             project: extern-windows-qt
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true

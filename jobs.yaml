@@ -66,6 +66,22 @@
     publishers:
         - archive:
             artifacts: "src/or/tor"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: announce or
+                body: $DEFAULT_SUBJECT
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: tor-ci-linux-clang
     project-type: matrix

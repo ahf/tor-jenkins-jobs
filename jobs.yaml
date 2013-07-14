@@ -68,8 +68,8 @@
             artifacts: "src/or/tor"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Announce or
-                body: $DEFAULT_SUBJECT
+                subject: Tor Jenkings build status
+                body: "$DEFAULT_SUBJECT\n\n$DEFAULT_CONTENT"
                 unstable: true
                 first-failure: true
                 not-built: true

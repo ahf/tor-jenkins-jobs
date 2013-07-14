@@ -69,7 +69,11 @@
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
                 subject: Tor Jenkings build status
-                body: "$DEFAULT_SUBJECT\n\n$DEFAULT_CONTENT"
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
                 unstable: true
                 first-failure: true
                 not-built: true

@@ -63,7 +63,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -103,7 +103,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -180,7 +180,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -224,7 +224,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -267,7 +267,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -326,7 +326,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -363,7 +363,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -421,7 +421,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -458,7 +458,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -519,7 +519,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -556,7 +556,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -681,7 +681,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -771,7 +771,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -828,7 +828,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -887,7 +887,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -942,7 +942,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -983,7 +983,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -1025,7 +1025,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true
@@ -1063,7 +1063,7 @@
                 failure: true
                 improvement: true
                 still-failing: true
-                #success: true
+                success: false
                 fixed: true
                 still-unstable: true
                 #pre-build: true

@@ -429,6 +429,23 @@
             values:
                 - yes-debug-mode
                 - no-debug-mode
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: announce or
+                body: $DEFAULT_SUBJECT
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
 - job:
     name: libevent-master-ci-windows
     node: Linux

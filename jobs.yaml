@@ -68,7 +68,7 @@
             artifacts: "src/or/tor"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: announce or
+                subject: Announce or
                 body: $DEFAULT_SUBJECT
                 unstable: true
                 first-failure: true
@@ -432,7 +432,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: announce or
+                subject: Announce or
                 body: $DEFAULT_SUBJECT
                 unstable: true
                 first-failure: true

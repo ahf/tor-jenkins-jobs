@@ -67,6 +67,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 # our actual projects
 ###############################################################
@@ -107,6 +108,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-clang
     project-type: matrix
@@ -184,6 +186,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 #### nightly .debs: master
 - job:
@@ -228,6 +231,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-master-nightly-binaries
     node: Linux
@@ -271,6 +275,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-master-nightly-install
     project-type: freestyle
@@ -330,6 +335,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-024-nightly-binaries
     node: Linux
@@ -367,6 +373,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-024-nightly-install
     project-type: freestyle
@@ -425,6 +432,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-023-nightly-binaries
     node: Linux
@@ -462,6 +470,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-023-nightly-install
     project-type: freestyle
@@ -523,6 +532,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-release-binaries
     node: Linux
@@ -560,6 +570,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-release-install
     project-type: freestyle
@@ -685,6 +696,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: libevent-master-ci-windows-test
     project-type: freestyle
@@ -775,6 +787,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 ###############################################################
 ### stem
@@ -832,6 +845,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 - job:
     name: stem-tor-ci
@@ -891,6 +905,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
@@ -946,6 +961,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -987,6 +1003,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: extern-windows-qt
     project-type: freestyle
@@ -1029,6 +1046,7 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -1067,3 +1085,4 @@
                 fixed: true
                 still-unstable: true
                 #pre-build: true
+                matrixTriggerMode: ONLY_PARENT

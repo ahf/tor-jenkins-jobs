@@ -8,7 +8,7 @@
            url: "{git-url}"
            basedir: source
     execution-strategy:
-        sequential: true
+        sequential: false
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
             result: stable
@@ -113,7 +113,7 @@
     name: tor-ci-linux-clang
     project-type: matrix
     execution-strategy:
-        sequential: true
+        sequential: false
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="sid")'
             result: stable
@@ -236,7 +236,7 @@
     name: tor-debian-master-nightly-binaries
     node: Linux
     execution-strategy:
-        sequential: true
+        sequential: false
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
             result: stable

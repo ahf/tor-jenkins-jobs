@@ -28,7 +28,6 @@
                 - jessie
                 - sid
                 - lucid
-                - oneiric
                 - precise
                 - quantal
                 - raring
@@ -806,7 +805,7 @@
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
             result: stable
-        combination-filter: '(SUITE!="squeeze" && SUITE!="lucid" && SUITE!="oneiric" && SUITE!="precise")'
+        combination-filter: '(SUITE!="squeeze" && SUITE!="lucid" && SUITE!="precise")'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 

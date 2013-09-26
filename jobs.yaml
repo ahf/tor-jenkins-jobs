@@ -84,23 +84,28 @@
                 - master
                 - maint-0.2.3
                 - maint-0.2.4
+- job:
+    name: tor-ci-linux-arm
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+                - maint-0.2.4
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            expr: '(ARCHITECTURE=="armhf" && SUITE=="wheezy")'
             result: stable
         combination-filter: >
             (ARCHITECTURE == "armel" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "precise" || SUITE == "quantal")) ||
-            (ARCHITECTURE == "armhf" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "quantal" || SUITE == "raring" || SUITE == "saucy" )) ||
-            (ARCHITECTURE == "i386") ||
-            (ARCHITECTURE == "amd64")
+            (ARCHITECTURE == "armhf" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "quantal" || SUITE == "raring" || SUITE == "saucy" ))
     axes:
         - axis:
             type: label-expression
             name: ARCHITECTURE
             values:
-                - amd64
-                - i386
                 - armel
                 - armhf
         - axis:
@@ -111,7 +116,6 @@
                 - wheezy
                 - jessie
                 - sid
-                - lucid
                 - precise
                 - quantal
                 - raring

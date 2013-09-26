@@ -31,6 +31,7 @@
                 - precise
                 - quantal
                 - raring
+                - saucy
     logrotate:
         daysToKeep: -1
         numToKeep: 5
@@ -83,6 +84,38 @@
                 - master
                 - maint-0.2.3
                 - maint-0.2.4
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            result: stable
+        combination-filter: >
+            (ARCHITECTURE == "armel" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE="jessie" || SUITE="sid" || SUITE == "precise" || SUITE == "quantal") ||
+            (ARCHITECTURE == "armhf" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE="jessie" || SUITE="sid" || SUITE == "quantal" || SUITE == "raring" || SUITE == "saucy" ) ||
+            (ARCHITECTURE == "i386") ||
+            (ARCHITECTURE == "amd64")
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+                - armel
+                - armhf
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - squeeze
+                - wheezy
+                - jessie
+                - sid
+                - lucid
+                - precise
+                - quantal
+                - raring
+                - saucy
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:

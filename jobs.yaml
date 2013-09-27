@@ -113,6 +113,7 @@
 - job:
     name: tor-ci-linux-arm
     node: Linux
+    quiet-period: 900
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

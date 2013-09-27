@@ -126,7 +126,7 @@
             result: stable
         combination-filter: >
             (ARCHITECTURE == "armel" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "precise" || SUITE == "quantal")) ||
-            (ARCHITECTURE == "armhf" && (SUITE == "squeeze" || SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "quantal" || SUITE == "raring" || SUITE == "saucy" ))
+            (ARCHITECTURE == "armhf" && (                      SUITE == "wheezy" || SUITE == "jessie" || SUITE == "sid" || SUITE == "quantal" || SUITE == "raring" || SUITE == "saucy" ))
     axes:
         - axis:
             type: label-expression

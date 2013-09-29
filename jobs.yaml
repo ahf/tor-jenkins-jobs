@@ -256,7 +256,7 @@
 - job:
     name: tor-debian-master-nightly-source
     project-type: freestyle
-    node: wheezy
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -359,7 +359,7 @@
 - job:
     name: tor-debian-024-nightly-source
     project-type: freestyle
-    node: wheezy
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -456,7 +456,7 @@
 - job:
     name: tor-debian-023-nightly-source
     project-type: freestyle
-    node: wheezy
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -557,7 +557,7 @@
         - string:
             name: "DEBIAN_VERSION"
             description: "debian version to build"
-    node: wheezy
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/debian/tor.git'

@@ -874,7 +874,7 @@
 - job:
     name: stem-tor-ci-base
     project-type: freestyle
-    node: Linux
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -912,7 +912,7 @@
 - job:
     name: stem-tor-ci
     project-type: freestyle
-    node: Linux
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/stem.git'
@@ -934,7 +934,7 @@
 - job:
     name: pyptlib-ci-linux
     project-type: freestyle
-    node: Linux
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/pyptlib'
@@ -971,7 +971,7 @@
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
-    node: Linux
+    node: dixie.torproject.org
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/obfsproxy'

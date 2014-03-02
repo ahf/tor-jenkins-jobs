@@ -302,7 +302,7 @@
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
             result: stable
-        combination-filter: '(SUITE!="lucid")'
+        #combination-filter: '(SUITE!="lucid")'
     scm:
         - none:
     builders:

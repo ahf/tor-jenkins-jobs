@@ -32,6 +32,7 @@
                 - quantal
                 - raring
                 - saucy
+                - trusty
     logrotate:
         daysToKeep: -1
         numToKeep: 5

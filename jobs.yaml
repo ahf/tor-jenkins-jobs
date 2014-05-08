@@ -10,7 +10,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
             result: stable
     axes:
         - axis:
@@ -178,7 +178,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="sid")'
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
             result: stable
         #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
     axes:
@@ -301,7 +301,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
             result: stable
         #combination-filter: '(SUITE!="lucid")'
     scm:
@@ -664,7 +664,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy" && CONFIGURE_VERBOSE_DEBUG=="yes-verbose-debug" && CONFIGURE_THREAD_SUPPORT=="yes-thread-support" && CONFIGURE_MALLOC_REPLACEMENT=="yes-malloc-replacement" && CONFIGURE_OPENSSL=="yes-openssl" && CONFIGURE_DEBUG_MODE=="yes-debug-mode" )'
+            expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy" && CONFIGURE_VERBOSE_DEBUG=="yes-verbose-debug" && CONFIGURE_THREAD_SUPPORT=="yes-thread-support" && CONFIGURE_MALLOC_REPLACEMENT=="yes-malloc-replacement" && CONFIGURE_OPENSSL=="yes-openssl" && CONFIGURE_DEBUG_MODE=="yes-debug-mode" )'
             result: stable
     axes:
         - axis:
@@ -866,7 +866,7 @@
     execution-strategy:
         sequential: true
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="wheezy")'
+            expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
             result: stable
         combination-filter: '(SUITE!="squeeze" && SUITE!="lucid" && SUITE!="precise")'
     builders:

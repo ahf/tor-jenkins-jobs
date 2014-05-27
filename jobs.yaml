@@ -1202,7 +1202,7 @@
         - shell: 'true'
         - copyartifact:
             project: tb-manual
-            which-build: "upstream-build"
+            which-build: "last-successful"
             flatten: true
             target: incoming
         - shell: "cat incoming/html.tar.gz | torwww@staticiforme.torproject.org jenkins-tb-manual"

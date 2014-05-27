@@ -1201,7 +1201,7 @@
     builders:
         - shell: 'true'
         - copyartifact:
-            project: tor-debian-master-nightly-binaries
+            project: tb-manual
             which-build: "upstream-build"
             flatten: true
             target: incoming

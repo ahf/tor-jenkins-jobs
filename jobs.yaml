@@ -1205,4 +1205,4 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "cat incoming/html.tar.gz | torwww@staticiforme.torproject.org jenkins-tb-manual"
+        - shell: "cat incoming/html.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-tb-manual"

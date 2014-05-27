@@ -1149,3 +1149,46 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tbb-manual
+    project-type: freestyle
+    node: dixie.torproject.org
+    scm:
+        - git:
+            url: 'https://gitweb.torproject.org/tor-browser/user-manual.git'
+            basedir: user-manual
+            branches:
+                - "master"
+        - git:
+            url: 'https://git.torproject.org/builders/tor-browser-bundle.git'
+            basedir: tor-browser-bundle
+            branches:
+                - "master"
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        #- trigger:
+        #    project: tor-debian-release-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT

@@ -1150,7 +1150,7 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
 - job:
-    name: tbb-manual
+    name: tb-manual
     project-type: freestyle
     node: dixie.torproject.org
     scm:

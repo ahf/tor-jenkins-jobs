@@ -1168,9 +1168,9 @@
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
-            artifacts: "RESULT/*"
-        #- trigger:
-        #    project: tor-debian-release-binaries
+            artifacts: "RESULT/html.tar.gz"
+        - trigger:
+            project: tb-manual-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
                 subject: Tor Jenkings build status
@@ -1192,3 +1192,17 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tb-manual-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-master-nightly-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/html.tar.gz | torwww@staticiforme.torproject.org jenkins-tb-manual"

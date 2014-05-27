@@ -1155,7 +1155,7 @@
     node: dixie.torproject.org
     scm:
         - git:
-            url: 'https://gitweb.torproject.org/tor-browser/user-manual.git'
+            url: 'https://git.torproject.org/tor-browser/user-manual.git'
             basedir: user-manual
             branches:
                 - "master"

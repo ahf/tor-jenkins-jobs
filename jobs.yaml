@@ -29,8 +29,6 @@
                 - sid
                 - lucid
                 - precise
-                - quantal
-                - raring
                 - saucy
                 - trusty
     logrotate:

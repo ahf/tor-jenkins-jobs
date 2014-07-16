@@ -74,14 +74,80 @@
 ### tor
 ###############################################################
 - job:
-    name: tor-ci-linux
+    name: tor-ci-linux-master
     node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
             branches:
                 - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "src/or/tor"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-linux-0.2.3
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
                 - maint-0.2.3
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "src/or/tor"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-linux-0.2.4
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
@@ -110,7 +176,7 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
 - job:
-    name: tor-ci-linux-clang
+    name: tor-ci-linux-master-clang
     project-type: matrix
     execution-strategy:
         sequential: false
@@ -136,7 +202,63 @@
             url: 'https://git.torproject.org/tor.git'
             branches:
                 - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+- job:
+    name: tor-ci-linux-0.2.3-clang
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+                #- experimental
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
                 - maint-0.2.3
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+- job:
+    name: tor-ci-linux-0.2.4-clang
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+                #- experimental
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

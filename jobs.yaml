@@ -369,7 +369,7 @@
 - job:
     name: tor-debian-master-nightly-source
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -472,7 +472,7 @@
 - job:
     name: tor-debian-024-nightly-source
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -569,7 +569,7 @@
 - job:
     name: tor-debian-023-nightly-source
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -670,7 +670,7 @@
         - string:
             name: "DEBIAN_VERSION"
             description: "debian version to build"
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
@@ -989,7 +989,7 @@
 - job:
     name: stem-tor-ci-base
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -1027,7 +1027,7 @@
 - job:
     name: stem-tor-ci
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/stem.git'
@@ -1049,7 +1049,7 @@
 - job:
     name: pyptlib-ci-linux
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/pyptlib'
@@ -1086,7 +1086,7 @@
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/obfsproxy'
@@ -1266,7 +1266,7 @@
 - job:
     name: tb-manual
     project-type: freestyle
-    node: dixie.torproject.org
+    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor-browser/user-manual.git'

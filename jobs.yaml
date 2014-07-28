@@ -430,8 +430,8 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-master-nightly-install
+#        - trigger:
+#            project: tor-debian-master-nightly-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
                 subject: Tor Jenkings build status
@@ -453,20 +453,20 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
-- job:
-    name: tor-debian-master-nightly-install
-    project-type: freestyle
-    node: master
-    scm:
-        - none
-    builders:
-        - shell: 'true'
-        - copyartifact:
-            project: tor-debian-master-nightly-binaries
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
+#- job:
+#    name: tor-debian-master-nightly-install
+#    project-type: freestyle
+#    node: master
+#    scm:
+#        - none
+#    builders:
+#        - shell: 'true'
+#        - copyartifact:
+#            project: tor-debian-master-nightly-binaries
+#            which-build: "upstream-build"
+#            flatten: true
+#            target: incoming
+#        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
 #### nightly .debs: 0.2.5.x
 - job:

@@ -231,35 +231,6 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
-    name: tor-ci-linux-0.2.3-clang
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
-            result: stable
-        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - sid
-                #- experimental
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.3
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
     name: tor-ci-linux-0.2.4-clang
     project-type: matrix
     execution-strategy:

@@ -1357,7 +1357,7 @@
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
-            artifacts: "RESULT/html.tar.gz"
+            artifacts: "RESULT/webwml.tar.gz"
         - trigger:
             project: website-install
         - email-ext:
@@ -1394,4 +1394,4 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "cat incoming/html.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website"
+        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website"

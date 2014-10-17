@@ -1291,3 +1291,22 @@
             flatten: true
             target: incoming
         - shell: "cat incoming/html.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-tb-manual"
+
+###############################################################
+### website
+###############################################################
+- job:
+    name: website-build-blog-snippets
+    project-type: freestyle
+    node: Linux
+    triggers:
+      - timed: '@daily'
+    project-type: freestyle
+    node: Linux
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/blog-snippets.wmi"
+        #- trigger:
+        #    project: website-build-webwml

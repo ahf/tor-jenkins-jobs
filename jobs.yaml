@@ -1310,5 +1310,30 @@
     publishers:
         - archive:
             artifacts: "RESULT/blog-snippets.wmi"
+        - trigger:
+            project: website-build-webwml
+- job:
+    name: website-build-webwml
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/project/web/webwml.git'
+            basedir: webwml
+            branches:
+                - "master"
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            basedir: tor
+    builders:
+        - copyartifact:
+            project: website-build-blog-snippets
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/html.tar.gz"
         #- trigger:
-        #    project: website-build-webwml
+        #    project: website-install

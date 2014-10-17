@@ -1324,6 +1324,8 @@
                 - "master"
         - git:
             url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
             basedir: tor
     builders:
         - copyartifact:

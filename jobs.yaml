@@ -1398,7 +1398,7 @@
 
 ###############################################################
 - job:
-    name: website-build-webwml-staging
+    name: website-staging-build-webwml
     project-type: freestyle
     node: Linux
     scm:
@@ -1423,7 +1423,7 @@
         - archive:
             artifacts: "RESULT/webwml.tar.gz"
         - trigger:
-            project: website-install-staging
+            project: website-staging-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
                 subject: Tor Jenkings build status
@@ -1446,7 +1446,7 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
 - job:
-    name: website-install-staging
+    name: website-staging-install
     project-type: freestyle
     node: master
     scm:

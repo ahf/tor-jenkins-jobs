@@ -1299,6 +1299,8 @@
     name: website-build-blog-snippets
     project-type: freestyle
     node: Linux
+    scm:
+        - none
     triggers:
       - timed: '@daily'
     project-type: freestyle

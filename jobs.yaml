@@ -1312,6 +1312,27 @@
             artifacts: "RESULT/blog-snippets.wmi"
         - trigger:
             project: website-build-webwml
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: website-build-webwml
     project-type: freestyle
@@ -1337,5 +1358,40 @@
     publishers:
         - archive:
             artifacts: "RESULT/html.tar.gz"
-        #- trigger:
-        #    project: website-install
+        - trigger:
+            project: website-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: website-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: website-build-webwml
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/html.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website"

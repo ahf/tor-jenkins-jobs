@@ -1454,7 +1454,7 @@
     builders:
         - shell: 'true'
         - copyartifact:
-            project: website-build-webwml
+            project: website-staging-build-webwml
             which-build: "last-successful"
             flatten: true
             target: incoming

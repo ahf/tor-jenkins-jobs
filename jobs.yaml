@@ -31,6 +31,7 @@
                 - precise
                 - saucy
                 - trusty
+                - utopic
     logrotate:
         daysToKeep: -1
         numToKeep: 5

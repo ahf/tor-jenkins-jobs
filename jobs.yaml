@@ -326,6 +326,54 @@
             project: extern-mingwcross-zlib
             which-build: "last-successful"
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross-test
+- job:
+    name: tor-ci-mingwcross-test
+    project-type: freestyle
+    node: windows
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-ci-mingwcross
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - copyartifact:
+            project: extern-mingwcross-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-zlib
+            which-build: "last-successful"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-windows
     project-type: freestyle

@@ -316,9 +316,9 @@
             branches:
                 - master
     builders:
-        #- copyartifact:
-            #project: extern-mingwcross-libevent
-            #which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-libevent
+            which-build: "last-successful"
         - copyartifact:
             project: extern-mingwcross-openssl
             which-build: "last-successful"

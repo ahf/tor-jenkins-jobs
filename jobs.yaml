@@ -290,6 +290,43 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
+    name: tor-ci-mingwcross
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            basedir: tor
+            branches:
+                - master
+    builders:
+        #- copyartifact:
+            #project: extern-mingwcross-libevent
+            #which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-zlib
+            which-build: "last-successful"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+- job:
     name: tor-ci-windows
     project-type: freestyle
     node: windows

@@ -351,7 +351,7 @@
         - copyartifact:
             project: extern-mingwcross-zlib
             which-build: "last-successful"
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org

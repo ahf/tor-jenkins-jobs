@@ -1250,7 +1250,7 @@
             name: ARCHITECTURE
             values:
                 - amd64
-                #- i386
+                - i386
         - axis:
             type: label-expression
             name: SUITE

@@ -1304,6 +1304,8 @@
     publishers:
         - archive:
             artifacts: "RESULT.zlib.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross
 - job:
     name: extern-mingwcross-openssl
     project-type: matrix
@@ -1335,6 +1337,8 @@
     publishers:
         - archive:
             artifacts: "RESULT.openssl.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross
 - job:
     name: extern-mingwcross-libevent
     project-type: matrix
@@ -1366,6 +1370,8 @@
     publishers:
         - archive:
             artifacts: "RESULT.libevent.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross
 ###############################################################
 ### tor browser manual
 ###############################################################

@@ -333,8 +333,24 @@
             project: tor-ci-mingwcross-test
 - job:
     name: tor-ci-mingwcross-test
-    project-type: freestyle
-    node: windows
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
     scm:
         - none:
     builders:
@@ -352,28 +368,6 @@
             project: extern-mingwcross-zlib
             which-build: "last-successful"
         - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-windows
     project-type: freestyle

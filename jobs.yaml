@@ -294,9 +294,9 @@
     project-type: matrix
     execution-strategy:
         sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
+        #touchstone:
+        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+        #    result: stable
     axes:
         - axis:
             type: label-expression

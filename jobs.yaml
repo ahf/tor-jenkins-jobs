@@ -331,6 +331,8 @@
             artifacts: "RESULT.tor.tar.gz"
         - trigger:
             project: tor-ci-mingwcross-test
+        - trigger:
+            project: tor-ci-mingwcross-test-native
 - job:
     name: tor-ci-mingwcross-test
     project-type: matrix

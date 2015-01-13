@@ -395,7 +395,7 @@
             url: 'https://git.torproject.org/tor.git'
             basedir: tor
             branches:
-                - master
+                - maint-0.2.5
     builders:
         - copyartifact:
             project: extern-mingwcross-libevent

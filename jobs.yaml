@@ -106,6 +106,8 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+        - trigger:
+            project: tor-ci-linux-master-extra-s390
 - job:
     name: tor-ci-linux-0.2.3
     node: Linux
@@ -202,6 +204,52 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+        - trigger:
+            project: tor-ci-linux-0.2.5-extra-s390
+- job:
+    name: tor-ci-linux-master-extra-s390
+    scm:
+        - none
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="s390x" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - s390x
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-0.2.5-extra-s390
     scm:
@@ -223,9 +271,7 @@
             type: label-expression
             name: SUITE
             values:
-                - wheezy
                 - jessie
-                - sid
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org

@@ -205,10 +205,7 @@
 - job:
     name: tor-ci-linux-0.2.5-extra-s390
     scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.5
+        - none
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:

@@ -211,7 +211,89 @@
         - trigger:
             project: tor-ci-linux-0.2.5-extra-arm
 - job:
+    name: tor-ci-linux-0.2.6
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - maint-0.2.6
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+        - trigger:
+            project: tor-ci-linux-0.2.6-extra-s390
+        - trigger:
+            project: tor-ci-linux-0.2.6-extra-arm
+- job:
     name: tor-ci-linux-master-extra-arm
+    scm:
+        - none
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - armhf
+                - armel
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+                - sid
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-linux-0.2.6-extra-arm
     scm:
         - none
     builders:
@@ -304,6 +386,50 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-master-extra-s390
+    scm:
+        - none
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="s390x" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - s390x
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-linux-0.2.6-extra-s390
     scm:
         - none
     builders:
@@ -478,6 +604,35 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
+    name: tor-ci-linux-0.2.6-clang
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+                #- experimental
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - maint-0.2.6
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+- job:
     name: tor-ci-mingwcross
     project-type: matrix
     execution-strategy:
@@ -640,6 +795,99 @@
             fallback-to-last-successful: true
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
 - job:
+    name: tor-ci-mingwcross-0.2.6
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        #touchstone:
+        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+        #    result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            basedir: tor
+            branches:
+                - maint-0.2.6
+    builders:
+        - copyartifact:
+            project: extern-mingwcross-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-zlib
+            which-build: "last-successful"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6-test
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6-test-native
+- job:
+    name: tor-ci-mingwcross-0.2.6-test
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-ci-mingwcross-0.2.6
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+- job:
+    name: tor-ci-mingwcross-0.2.5-test-native
+    project-type: freestyle
+    node: windows
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-ci-mingwcross-0.2.5
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+- job:
+    name: tor-ci-mingwcross-0.2.6-test-native
+    project-type: freestyle
+    node: windows
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-ci-mingwcross-0.2.6
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+- job:
     name: tor-ci-windows
     project-type: freestyle
     node: windows
@@ -693,6 +941,51 @@
             url: 'https://git.torproject.org/tor.git'
             branches:
                 - maint-0.2.5
+            basedir: tor
+    builders:
+        - copyartifact:
+            project: extern-windows-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-windows-0.2.6
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - maint-0.2.6
             basedir: tor
     builders:
         - copyartifact:
@@ -833,6 +1126,103 @@
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
+#### nightly .debs: 0.2.6.x
+- job:
+    name: tor-debian-026-nightly-source
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - maint-0.2.6
+                - release-0.2.6
+            basedir: tor
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            branches:
+                - debian-0.2.6
+            basedir: debian-tor
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-026-nightly-binaries
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-debian-026-nightly-binaries
+    node: Linux
+    scm:
+        - none:
+    builders:
+        - copyartifact:
+            project: tor-debian-026-nightly-source
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-026-nightly-install
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-debian-026-nightly-install
+    project-type: freestyle
+    node: master
+    scm:
+        - none
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-026-nightly-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 #### nightly .debs: 0.2.5.x
 - job:
     name: tor-debian-025-nightly-source
@@ -1664,6 +2054,8 @@
             project: tor-ci-mingwcross
         - trigger:
             project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
 - job:
     name: extern-mingwcross-openssl
     project-type: matrix
@@ -1699,6 +2091,8 @@
             project: tor-ci-mingwcross
         - trigger:
             project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
 - job:
     name: extern-mingwcross-libevent
     project-type: matrix
@@ -1734,6 +2128,8 @@
             project: tor-ci-mingwcross
         - trigger:
             project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
 ###############################################################
 ### tor browser manual
 ###############################################################

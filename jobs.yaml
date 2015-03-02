@@ -884,6 +884,36 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-freebsd-amd64-master
+    project-type: freestyle
+    node: freebsd-amd64
+    scm:
+        - none
+    builders:
+        - shell: '~/jenkins-tools/slaves/other/build-wrapper'
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 #### nightly .debs: master
 - job:

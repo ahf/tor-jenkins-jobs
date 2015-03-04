@@ -108,6 +108,8 @@
                 matrixTriggerMode: ONLY_PARENT
         - trigger:
             project: tor-ci-linux-master-extra-arm
+        - trigger:
+            project: tor-ci-freebsd-amd64-master
 - job:
     name: tor-ci-linux-0.2.3
     node: Linux
@@ -206,6 +208,8 @@
                 matrixTriggerMode: ONLY_PARENT
         - trigger:
             project: tor-ci-linux-0.2.5-extra-arm
+        - trigger:
+            project: tor-ci-freebsd-amd64-0.2.5
 - job:
     name: tor-ci-linux-0.2.6
     node: Linux
@@ -240,6 +244,8 @@
                 matrixTriggerMode: ONLY_PARENT
         - trigger:
             project: tor-ci-linux-0.2.6-extra-arm
+        - trigger:
+            project: tor-ci-freebsd-amd64-0.2.6
 - job:
     name: tor-ci-linux-master-extra-arm
     scm:

@@ -994,7 +994,7 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             branches:
-                - master
+                - '${COMMIT}'
             basedir: tor
     builders:
         - copyartifact:

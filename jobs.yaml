@@ -982,6 +982,55 @@
                 still-unstable: true
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
+- job:
+    name: tor-ci-windows-commit
+    project-type: freestyle
+    parameters:
+        - string:
+            name: "COMMIT"
+            description: "commit digest"
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            branches:
+                - master
+            basedir: tor
+    builders:
+        - copyartifact:
+            project: extern-windows-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkings build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
 
 #### nightly .debs: master
 - job:

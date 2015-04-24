@@ -29,9 +29,9 @@
                 - sid
                 - lucid
                 - precise
-                - saucy
                 - trusty
                 - utopic
+                - vivid
     logrotate:
         daysToKeep: -1
         numToKeep: 5

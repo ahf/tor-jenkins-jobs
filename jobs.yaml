@@ -27,7 +27,6 @@
                 - wheezy
                 - jessie
                 - sid
-                - lucid
                 - precise
                 - trusty
                 - utopic
@@ -1084,7 +1083,6 @@
         touchstone:
             expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
             result: stable
-        #combination-filter: '(SUITE!="lucid")'
     scm:
         - none:
     builders:
@@ -1746,7 +1744,7 @@
         touchstone:
             expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
             result: stable
-        combination-filter: '(SUITE!="squeeze" && SUITE!="lucid" && SUITE!="precise")'
+        combination-filter: '(SUITE!="squeeze" && SUITE!="precise")'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 

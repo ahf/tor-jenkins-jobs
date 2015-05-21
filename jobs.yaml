@@ -10,7 +10,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="i386" && SUITE=="wheezy")'
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
             result: stable
     axes:
         - axis:

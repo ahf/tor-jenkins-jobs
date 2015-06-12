@@ -50,7 +50,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -93,7 +93,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -129,7 +129,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -161,7 +161,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -193,7 +193,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -229,7 +229,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -279,7 +279,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -325,7 +325,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -371,7 +371,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -787,7 +787,7 @@
             artifacts: "RESULT.tor.tar.gz"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -832,7 +832,7 @@
             artifacts: "RESULT.tor.tar.gz"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -877,7 +877,7 @@
             artifacts: "RESULT.tor.tar.gz"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -907,7 +907,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -938,7 +938,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -969,7 +969,7 @@
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1018,7 +1018,7 @@
             artifacts: "RESULT.tor.tar.gz"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1063,7 +1063,7 @@
             project: tor-debian-master-nightly-binaries
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1107,7 +1107,7 @@
             project: tor-debian-master-nightly-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1167,7 +1167,7 @@
             project: tor-debian-026-nightly-binaries
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1205,7 +1205,7 @@
             project: tor-debian-026-nightly-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1264,7 +1264,7 @@
             project: tor-debian-025-nightly-binaries
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1302,7 +1302,7 @@
             project: tor-debian-025-nightly-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1361,7 +1361,7 @@
             project: tor-debian-024-nightly-binaries
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1399,7 +1399,7 @@
             project: tor-debian-024-nightly-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1461,7 +1461,7 @@
             project: tor-debian-release-binaries
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1499,7 +1499,7 @@
             project: tor-debian-release-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1625,7 +1625,7 @@
             project: libevent-master-ci-windows-test
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1716,7 +1716,7 @@
             artifacts: "RESULT.vidalia.tar.gz"
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1774,7 +1774,7 @@
             project: stem-tor-ci
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1834,7 +1834,7 @@
             project: obfsproxy-ci-linux
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1890,7 +1890,7 @@
             project: tor-ci-windows
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1932,7 +1932,7 @@
             project: extern-windows-qt
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -1975,7 +1975,7 @@
             project: vidalia-ci-windows
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -2014,7 +2014,7 @@
             project: extern-windows-qt
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -2172,7 +2172,7 @@
             project: tb-manual-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -2228,7 +2228,7 @@
             project: website-build-webwml
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -2276,7 +2276,7 @@
             project: website-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER
@@ -2340,7 +2340,7 @@
             project: website-staging-install
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkings build status
+                subject: Tor Jenkins build status
                 body: |
                       project: $PROJECT_NAME
                       build: $BUILD_NUMBER

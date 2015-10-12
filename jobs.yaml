@@ -30,7 +30,6 @@
                 - sid
                 - precise
                 - trusty
-                - utopic
                 - vivid
     logrotate:
         daysToKeep: -1

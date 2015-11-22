@@ -31,6 +31,7 @@
                 - precise
                 - trusty
                 - vivid
+                - wily
     logrotate:
         daysToKeep: -1
         numToKeep: 5

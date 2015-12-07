@@ -2034,7 +2034,7 @@
         - copyartifact:
             project: stem-tor-ci-base
             which-build: "last-successful"
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - email-ext:
                 recipients: atagar@torproject.org

@@ -2602,7 +2602,7 @@
     project-type: freestyle
     node: Linux
     builders:
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/blog-snippets.wmi"
@@ -2650,7 +2650,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/webwml.tar.gz"
@@ -2714,7 +2714,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/webwml.tar.gz"

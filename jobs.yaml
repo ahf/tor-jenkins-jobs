@@ -126,12 +126,6 @@
                 - maint-0.2.3
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -164,12 +158,6 @@
                 - maint-0.2.4
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -202,12 +190,6 @@
                 - maint-0.2.5
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -244,12 +226,6 @@
                 - maint-0.2.6
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org

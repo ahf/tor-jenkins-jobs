@@ -23,7 +23,6 @@
             type: label-expression
             name: SUITE
             values:
-                - squeeze
                 - wheezy
                 - jessie
                 - stretch
@@ -84,12 +83,6 @@
                 - master
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -262,12 +255,6 @@
                 - maint-0.2.7
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -1367,12 +1354,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -1471,12 +1452,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -1574,12 +1549,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -1677,12 +1646,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -1780,12 +1743,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -1886,12 +1843,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '(SUITE!="squeeze")'
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -2152,7 +2103,7 @@
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
             result: stable
-        combination-filter: '(SUITE!="squeeze" && SUITE!="precise")'
+        combination-filter: '(SUITE!="precise")'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 

@@ -3,6 +3,7 @@
     description: 'Do not edit this job through the web'
     project-type: matrix
     block-upstream: true
+    node: master
     scm:
        - git:
            url: "{git-url}"
@@ -44,8 +45,6 @@
         - timeout:
             timeout: 600
             fail: true
-        - matrixtieparent:
-            labelname: master
     publishers:
         - email-ext:
                 recipients: tor-jenkins@commit.noreply.org
@@ -75,7 +74,6 @@
 ###############################################################
 - job:
     name: tor-ci-linux-master
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -111,7 +109,6 @@
             project: tor-ci-freebsd-amd64-master
 - job:
     name: tor-ci-linux-0.2.5
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -147,7 +144,6 @@
             project: tor-ci-freebsd-amd64-0.2.5
 - job:
     name: tor-ci-linux-0.2.6
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -183,7 +179,6 @@
             project: tor-ci-freebsd-amd64-0.2.6
 - job:
     name: tor-ci-linux-0.2.7
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -219,8 +214,7 @@
             project: tor-ci-freebsd-amd64-0.2.7
 - job:
     name: tor-ci-linux-master-extra-arm
-    scm:
-        - none
+    scm: []
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:
@@ -265,8 +259,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-0.2.7-extra-arm
-    scm:
-        - none
+    scm: []
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:
@@ -311,8 +304,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-0.2.6-extra-arm
-    scm:
-        - none
+    scm: []
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:
@@ -357,8 +349,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-0.2.5-extra-arm
-    scm:
-        - none
+    scm: []
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:
@@ -578,8 +569,7 @@
             name: SUITE
             values:
                 - jessie
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross
@@ -590,8 +580,7 @@
     name: tor-ci-mingwcross-test-native
     project-type: freestyle
     node: windows
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross
@@ -659,8 +648,7 @@
             name: SUITE
             values:
                 - jessie
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.5
@@ -728,8 +716,7 @@
             name: SUITE
             values:
                 - jessie
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.7
@@ -797,8 +784,7 @@
             name: SUITE
             values:
                 - jessie
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.6
@@ -809,8 +795,7 @@
     name: tor-ci-mingwcross-0.2.7-test-native
     project-type: freestyle
     node: windows
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.7
@@ -821,8 +806,7 @@
     name: tor-ci-mingwcross-0.2.6-test-native
     project-type: freestyle
     node: windows
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.6
@@ -833,8 +817,7 @@
     name: tor-ci-mingwcross-0.2.5-test-native
     project-type: freestyle
     node: windows
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-ci-mingwcross-0.2.5
@@ -1025,8 +1008,7 @@
     name: tor-ci-freebsd-amd64-master
     project-type: freestyle
     node: freebsd-amd64
-    scm:
-        - none
+    scm: []
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
     publishers:
@@ -1056,8 +1038,7 @@
     name: tor-ci-freebsd-amd64-0.2.7
     project-type: freestyle
     node: freebsd-amd64
-    scm:
-        - none
+    scm: []
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
     publishers:
@@ -1086,8 +1067,7 @@
     name: tor-ci-freebsd-amd64-0.2.6
     project-type: freestyle
     node: freebsd-amd64
-    scm:
-        - none
+    scm: []
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
     publishers:
@@ -1116,8 +1096,7 @@
     name: tor-ci-freebsd-amd64-0.2.5
     project-type: freestyle
     node: freebsd-amd64
-    scm:
-        - none
+    scm: []
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
     publishers:
@@ -1146,11 +1125,11 @@
 - job:
     name: tor-ci-windows-commit
     project-type: freestyle
+    node: windows
     parameters:
         - string:
             name: "COMMIT"
             description: "commit digest"
-    node: windows
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -1239,9 +1218,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-master-nightly-binaries
-    node: Linux
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-debian-master-nightly-source
@@ -1279,8 +1256,7 @@
     name: tor-debian-master-nightly-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -1337,9 +1313,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-027-nightly-binaries
-    node: Linux
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-debian-027-nightly-source
@@ -1377,8 +1351,7 @@
     name: tor-debian-027-nightly-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -1434,9 +1407,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-026-nightly-binaries
-    node: Linux
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-debian-026-nightly-source
@@ -1474,8 +1445,7 @@
     name: tor-debian-026-nightly-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -1531,9 +1501,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-025-nightly-binaries
-    node: Linux
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-debian-025-nightly-source
@@ -1571,8 +1539,7 @@
     name: tor-debian-025-nightly-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -1585,11 +1552,11 @@
 - job:
     name: tor-debian-release-source
     project-type: freestyle
+    node: Linux
     parameters:
         - string:
             name: "DEBIAN_VERSION"
             description: "debian version to build"
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
@@ -1631,9 +1598,7 @@
                 matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-debian-release-binaries
-    node: Linux
-    scm:
-        - none:
+    scm: []
     builders:
         - copyartifact:
             project: tor-debian-release-source
@@ -1671,8 +1636,7 @@
     name: tor-debian-release-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -1686,7 +1650,6 @@
 ###############################################################
 - job:
     name: tlsdate-ci-linux
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tlsdate.git'
@@ -1699,7 +1662,6 @@
 ###############################################################
 - job:
     name: torsocks-ci-linux
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/torsocks.git'
@@ -1712,7 +1674,6 @@
 ###############################################################
 - job:
     name: vidalia-ci-linux
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/vidalia.git'
@@ -1764,7 +1725,6 @@
 ###############################################################
 - job:
     name: stem-ci-linux
-    node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/stem.git'
@@ -2224,8 +2184,7 @@
     name: tb-manual-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -2242,8 +2201,7 @@
     name: website-build-blog-snippets
     project-type: freestyle
     node: Linux
-    scm:
-        - none
+    scm: []
     triggers:
       - timed: '@daily'
     project-type: freestyle
@@ -2328,8 +2286,7 @@
     name: website-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:
@@ -2392,8 +2349,7 @@
     name: website-staging-install
     project-type: freestyle
     node: master
-    scm:
-        - none
+    scm: []
     builders:
         - shell: 'true'
         - copyartifact:

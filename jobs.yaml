@@ -107,6 +107,53 @@
             project: 'tor-ci-linux-{version}-extra-arm'
         - trigger:
             project: 'tor-ci-freebsd-amd64-{version}'
+
+- job-template:
+    name: 'tor-ci-linux-{version}-extra-arm'
+    scm: []
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - armhf
+                - armel
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+                - sid
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkins build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+
 - project:
     name: tor-ci-linux
     version:
@@ -120,187 +167,8 @@
           branch_name: maint-0.2.7
     jobs:
       - 'tor-ci-linux-{version}'
+      - 'tor-ci-linux-{version}-extra-arm'
 
-- job:
-    name: tor-ci-linux-master-extra-arm
-    scm: []
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
-            result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - armhf
-                - armel
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-                - sid
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-- job:
-    name: tor-ci-linux-0.2.7-extra-arm
-    scm: []
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
-            result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - armhf
-                - armel
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-                - sid
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-- job:
-    name: tor-ci-linux-0.2.6-extra-arm
-    scm: []
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
-            result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - armhf
-                - armel
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-                - sid
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-- job:
-    name: tor-ci-linux-0.2.5-extra-arm
-    scm: []
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
-            result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - armhf
-                - armel
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-                - sid
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
 - job:
     name: tor-ci-linux-master-clang
     project-type: matrix

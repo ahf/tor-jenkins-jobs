@@ -77,6 +77,39 @@
 ###############################################################
 ### tor
 ###############################################################
+- project:
+    name: tor-ci-linux
+    version:
+      - master:
+          branch_name: '{version}'
+          debian_upstream_release_branch: '{version}'
+          debian_branch: '{version}'
+      - 0.2.5:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.2.6:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.2.7:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+    jobs:
+      - 'tor-ci-linux-{version}'
+      - 'tor-ci-linux-{version}-extra-arm'
+      - 'tor-ci-linux-{version}-clang'
+      - 'tor-ci-mingwcross-{version}'
+      - 'tor-ci-mingwcross-{version}-test'
+      - 'tor-ci-mingwcross-{version}-test-native'
+      - 'tor-ci-windows-{version}'
+      - 'tor-ci-freebsd-amd64-{version}'
+      - 'tor-debian-{version}-nightly-source'
+      - 'tor-debian-{version}-nightly-binaries'
+      - 'tor-debian-{version}-nightly-install'
+
+
 - job-template:
     name: 'tor-ci-linux-{version}'
     scm:
@@ -255,26 +288,6 @@
             artifacts: "RESULT.tor.tar.gz"
         - notify-tor-irc
 
-- project:
-    name: tor-ci-linux
-    version:
-      - master:
-          branch_name: master
-      - 0.2.5:
-          branch_name: maint-0.2.5
-      - 0.2.6:
-          branch_name: maint-0.2.6
-      - 0.2.7:
-          branch_name: maint-0.2.7
-    jobs:
-      - 'tor-ci-linux-{version}'
-      - 'tor-ci-linux-{version}-extra-arm'
-      - 'tor-ci-linux-{version}-clang'
-      - 'tor-ci-mingwcross-{version}'
-      - 'tor-ci-mingwcross-{version}-test'
-      - 'tor-ci-mingwcross-{version}-test-native'
-      - 'tor-ci-windows-{version}'
-      - 'tor-ci-freebsd-amd64-{version}'
 
 - job-template:
     name: 'tor-ci-freebsd-amd64-{version}'
@@ -314,21 +327,24 @@
             artifacts: "RESULT.tor.tar.gz"
         - notify-tor-irc
 
-#### nightly .debs: master
-- job:
-    name: tor-debian-master-nightly-source
+
+
+#### nightly .debs
+- job-template:
+    name: 'tor-debian-{version}-nightly-source'
     project-type: freestyle
     node: Linux
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
             branches:
-                - master
+              - '{branch_name}'
+              - '{debian_upstream_release_branch}'
             basedir: tor
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
             branches:
-                - master
+                - '{debian_branch}'
             basedir: debian-tor
     builders:
         - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
@@ -336,14 +352,14 @@
         - archive:
             artifacts: "RESULT/*"
         - trigger:
-            project: tor-debian-master-nightly-binaries
+            project: 'tor-debian-{version}-nightly-binaries'
         - notify-tor-irc
-- job:
-    name: tor-debian-master-nightly-binaries
+- job-template:
+    name: 'tor-debian-{version}-nightly-binaries'
     scm: []
     builders:
         - copyartifact:
-            project: tor-debian-master-nightly-source
+            project: 'tor-debian-{version}-nightly-source'
             which-build: "upstream-build"
             flatten: true
             target: incoming
@@ -352,184 +368,22 @@
         - archive:
             artifacts: "RESULT/*"
         - trigger:
-            project: tor-debian-master-nightly-install
+            project: 'tor-debian-{version}-nightly-install'
         - notify-tor-irc
-- job:
-    name: tor-debian-master-nightly-install
+- job-template:
+    name: 'tor-debian-{version}-nightly-install'
     project-type: freestyle
     node: master
     scm: []
     builders:
         - shell: 'true'
         - copyartifact:
-            project: tor-debian-master-nightly-binaries
+            project: 'tor-debian-{version}-nightly-binaries'
             which-build: "upstream-build"
             flatten: true
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 
-#### nightly .debs: 0.2.7.x
-- job:
-    name: tor-debian-027-nightly-source
-    project-type: freestyle
-    node: Linux
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.7
-                - release-0.2.7
-            basedir: tor
-        - git:
-            url: 'https://git.torproject.org/debian/tor.git'
-            branches:
-                - debian-0.2.7
-            basedir: debian-tor
-    builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-027-nightly-binaries
-        - notify-tor-irc
-- job:
-    name: tor-debian-027-nightly-binaries
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-debian-027-nightly-source
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-027-nightly-install
-        - notify-tor-irc
-- job:
-    name: tor-debian-027-nightly-install
-    project-type: freestyle
-    node: master
-    scm: []
-    builders:
-        - shell: 'true'
-        - copyartifact:
-            project: tor-debian-027-nightly-binaries
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
-#### nightly .debs: 0.2.6.x
-- job:
-    name: tor-debian-026-nightly-source
-    project-type: freestyle
-    node: Linux
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.6
-                - release-0.2.6
-            basedir: tor
-        - git:
-            url: 'https://git.torproject.org/debian/tor.git'
-            branches:
-                - debian-0.2.6
-            basedir: debian-tor
-    builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-026-nightly-binaries
-        - notify-tor-irc
-- job:
-    name: tor-debian-026-nightly-binaries
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-debian-026-nightly-source
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-026-nightly-install
-        - notify-tor-irc
-- job:
-    name: tor-debian-026-nightly-install
-    project-type: freestyle
-    node: master
-    scm: []
-    builders:
-        - shell: 'true'
-        - copyartifact:
-            project: tor-debian-026-nightly-binaries
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
-#### nightly .debs: 0.2.5.x
-- job:
-    name: tor-debian-025-nightly-source
-    project-type: freestyle
-    node: Linux
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.5
-                - release-0.2.5
-            basedir: tor
-        - git:
-            url: 'https://git.torproject.org/debian/tor.git'
-            branches:
-                - debian-0.2.5
-            basedir: debian-tor
-    builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-025-nightly-binaries
-        - notify-tor-irc
-- job:
-    name: tor-debian-025-nightly-binaries
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-debian-025-nightly-source
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    publishers:
-        - archive:
-            artifacts: "RESULT/*"
-        - trigger:
-            project: tor-debian-025-nightly-install
-        - notify-tor-irc
-- job:
-    name: tor-debian-025-nightly-install
-    project-type: freestyle
-    node: master
-    scm: []
-    builders:
-        - shell: 'true'
-        - copyartifact:
-            project: tor-debian-025-nightly-binaries
-            which-build: "upstream-build"
-            flatten: true
-            target: incoming
-        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 #### .debs: release builds
 - job:
     name: tor-debian-release-source

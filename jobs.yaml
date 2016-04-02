@@ -470,37 +470,6 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 ###############################################################
-### vidalia
-###############################################################
-- job:
-    name: vidalia-ci-linux
-    scm:
-        - git:
-            url: 'https://git.torproject.org/vidalia.git'
-            branches:
-                - master
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
-    name: vidalia-ci-windows
-    project-type: freestyle
-    node: windows
-    scm:
-        - git:
-            url: 'https://git.torproject.org/vidalia.git'
-            branches:
-                - master
-    builders:
-        - copyartifact:
-            project: extern-windows-qt
-            which-build: "last-successful"
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    publishers:
-        - archive:
-            artifacts: "RESULT.vidalia.tar.gz"
-        - notify-tor-irc
-
-###############################################################
 ### stem
 ###############################################################
 - job:

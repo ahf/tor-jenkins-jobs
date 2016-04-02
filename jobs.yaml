@@ -668,18 +668,6 @@
             fallback-to-last-successful: true
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
-    name: tor-ci-mingwcross-0.2.5-test-native
-    project-type: freestyle
-    node: windows
-    scm:
-        - none:
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.5
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-- job:
     name: tor-ci-mingwcross-0.2.7
     project-type: matrix
     execution-strategy:

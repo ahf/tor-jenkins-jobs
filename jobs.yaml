@@ -1,3 +1,28 @@
+- publisher:
+    name: notify-tor-irc
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkins build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+
 - defaults:
     name: global
     description: 'Do not edit this job through the web'
@@ -46,27 +71,7 @@
             timeout: 600
             fail: true
     publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+      - notify-tor-irc
 
 # our actual projects
 ###############################################################
@@ -82,27 +87,7 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
         - trigger:
             project: 'tor-ci-linux-{version}-extra-arm'
         - trigger:
@@ -131,28 +116,6 @@
             values:
                 - jessie
                 - sid
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
 
 - job-template:
     name: 'tor-ci-linux-{version}-clang'
@@ -290,27 +253,7 @@
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 
 - project:
     name: tor-ci-linux
@@ -340,29 +283,6 @@
     scm: []
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-
 
 - job:
     name: tor-ci-windows-commit
@@ -392,27 +312,7 @@
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 
 #### nightly .debs: master
 - job:
@@ -437,27 +337,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-master-nightly-binaries
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-master-nightly-binaries
     scm: []
@@ -473,27 +353,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-master-nightly-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-master-nightly-install
     project-type: freestyle
@@ -532,27 +392,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-027-nightly-binaries
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-027-nightly-binaries
     scm: []
@@ -568,27 +408,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-027-nightly-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-027-nightly-install
     project-type: freestyle
@@ -626,27 +446,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-026-nightly-binaries
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-026-nightly-binaries
     scm: []
@@ -662,27 +462,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-026-nightly-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-026-nightly-install
     project-type: freestyle
@@ -720,27 +500,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-025-nightly-binaries
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-025-nightly-binaries
     scm: []
@@ -756,27 +516,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-025-nightly-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-025-nightly-install
     project-type: freestyle
@@ -817,27 +557,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-binaries
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-release-binaries
     scm: []
@@ -853,27 +573,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tor-debian-release-install
     project-type: freestyle
@@ -940,27 +640,7 @@
     publishers:
         - archive:
             artifacts: "RESULT.vidalia.tar.gz"
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 
 ###############################################################
 ### stem
@@ -997,27 +677,7 @@
             artifacts: "build-tree-tor/src/or/tor"
         - trigger:
             project: stem-tor-ci
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 
 - job:
     name: stem-tor-ci
@@ -1057,27 +717,7 @@
             artifacts: "RESULT.pyptlib.tar.gz"
         - trigger:
             project: obfsproxy-ci-linux
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
@@ -1113,27 +753,7 @@
             artifacts: "RESULT.libevent.tar.gz"
         - trigger:
             project: tor-ci-windows-master
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -1155,27 +775,7 @@
             project: tor-ci-windows-master
         - trigger:
             project: extern-windows-qt
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: extern-windows-qt
     project-type: freestyle
@@ -1198,27 +798,7 @@
             artifacts: "RESULT.qt.tar.gz"
         - trigger:
             project: vidalia-ci-windows
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -1237,27 +817,7 @@
             project: extern-windows-openssl
         - trigger:
             project: extern-windows-qt
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 ###########
 - job:
     name: extern-mingwcross-zlib
@@ -1401,27 +961,7 @@
             artifacts: "RESULT/html.tar.gz"
         - trigger:
             project: tb-manual-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: tb-manual-install
     project-type: freestyle
@@ -1455,27 +995,7 @@
             artifacts: "RESULT/blog-snippets.wmi"
         - trigger:
             project: website-build-webwml
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: website-build-webwml
     project-type: freestyle
@@ -1503,27 +1023,7 @@
             artifacts: "RESULT/webwml.tar.gz"
         - trigger:
             project: website-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: website-install
     project-type: freestyle
@@ -1566,27 +1066,7 @@
             artifacts: "RESULT/webwml.tar.gz"
         - trigger:
             project: website-staging-install
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
+        - notify-tor-irc
 - job:
     name: website-staging-install
     project-type: freestyle

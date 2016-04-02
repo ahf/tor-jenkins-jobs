@@ -184,6 +184,88 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
+- job-template:
+    name: 'tor-ci-mingwcross-{version}'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        #touchstone:
+        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+        #    result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            basedir: tor
+            branches:
+                - '{branch_name}'
+    builders:
+        - copyartifact:
+            project: extern-mingwcross-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-zlib
+            which-build: "last-successful"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - trigger:
+            project: 'tor-ci-mingwcross-{version}-test'
+        - trigger:
+            project: 'tor-ci-mingwcross-{version}-test-native'
+
+- job-template:
+    name: 'tor-ci-mingwcross-{version}-test'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - jessie
+    scm: []
+    builders:
+        - copyartifact:
+            project: 'tor-ci-mingwcross-{version}'
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-mingwcross-{version}-test-native'
+    project-type: freestyle
+    node: windows
+    scm: []
+    builders:
+        - copyartifact:
+            project: 'tor-ci-mingwcross-{version}'
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+
 - project:
     name: tor-ci-linux
     version:
@@ -199,323 +281,10 @@
       - 'tor-ci-linux-{version}'
       - 'tor-ci-linux-{version}-extra-arm'
       - 'tor-ci-linux-{version}-clang'
+      - 'tor-ci-mingwcross-{version}'
+      - 'tor-ci-mingwcross-{version}-test'
+      - 'tor-ci-mingwcross-{version}-test-native'
 
-- job:
-    name: tor-ci-mingwcross-master
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-        #touchstone:
-        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-        #    result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            basedir: tor
-            branches:
-                - master
-    builders:
-        - copyartifact:
-            project: extern-mingwcross-libevent
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-openssl
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-zlib
-            which-build: "last-successful"
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT.tor.tar.gz"
-        - trigger:
-            project: tor-ci-mingwcross-master-test
-        - trigger:
-            project: tor-ci-mingwcross-master-test-native
-- job:
-    name: tor-ci-mingwcross-master-test
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-master
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
-    name: tor-ci-mingwcross-master-test-native
-    project-type: freestyle
-    node: windows
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-master
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-- job:
-    name: tor-ci-mingwcross-0.2.5
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-        #touchstone:
-        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-        #    result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            basedir: tor
-            branches:
-                - maint-0.2.5
-    builders:
-        - copyartifact:
-            project: extern-mingwcross-libevent
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-openssl
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-zlib
-            which-build: "last-successful"
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT.tor.tar.gz"
-        - trigger:
-            project: tor-ci-mingwcross-0.2.5-test
-        - trigger:
-            project: tor-ci-mingwcross-0.2.5-test-native
-- job:
-    name: tor-ci-mingwcross-0.2.5-test
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.5
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
-    name: tor-ci-mingwcross-0.2.7
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-        #touchstone:
-        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-        #    result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            basedir: tor
-            branches:
-                - maint-0.2.7
-    builders:
-        - copyartifact:
-            project: extern-mingwcross-libevent
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-openssl
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-zlib
-            which-build: "last-successful"
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT.tor.tar.gz"
-        - trigger:
-            project: tor-ci-mingwcross-0.2.7-test
-        - trigger:
-            project: tor-ci-mingwcross-0.2.7-test-native
-- job:
-    name: tor-ci-mingwcross-0.2.7-test
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.7
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
-    name: tor-ci-mingwcross-0.2.6
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-        #touchstone:
-        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-        #    result: stable
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            basedir: tor
-            branches:
-                - maint-0.2.6
-    builders:
-        - copyartifact:
-            project: extern-mingwcross-libevent
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-openssl
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-mingwcross-zlib
-            which-build: "last-successful"
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - archive:
-            artifacts: "RESULT.tor.tar.gz"
-        - trigger:
-            project: tor-ci-mingwcross-0.2.6-test
-        - trigger:
-            project: tor-ci-mingwcross-0.2.6-test-native
-- job:
-    name: tor-ci-mingwcross-0.2.6-test
-    project-type: matrix
-    execution-strategy:
-        sequential: false
-    axes:
-        - axis:
-            type: label-expression
-            name: ARCHITECTURE
-            values:
-                - amd64
-                - i386
-        - axis:
-            type: label-expression
-            name: SUITE
-            values:
-                - jessie
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.6
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-- job:
-    name: tor-ci-mingwcross-0.2.7-test-native
-    project-type: freestyle
-    node: windows
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.7
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-- job:
-    name: tor-ci-mingwcross-0.2.6-test-native
-    project-type: freestyle
-    node: windows
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.6
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-- job:
-    name: tor-ci-mingwcross-0.2.5-test-native
-    project-type: freestyle
-    node: windows
-    scm: []
-    builders:
-        - copyartifact:
-            project: tor-ci-mingwcross-0.2.5
-            which-build: "upstream-build"
-            fallback-to-last-successful: true
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
 - job:
     name: tor-ci-windows-master
     project-type: freestyle

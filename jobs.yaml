@@ -96,6 +96,10 @@
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
           debian_branch: 'debian-{version}'
+      - 0.2.8:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
     jobs:
       - 'tor-ci-linux-{version}'
       - 'tor-ci-linux-{version}-extra-arm'
@@ -712,6 +716,8 @@
             project: tor-ci-mingwcross-0.2.6
         - trigger:
             project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
 - job:
     name: extern-mingwcross-openssl
     project-type: matrix
@@ -751,6 +757,8 @@
             project: tor-ci-mingwcross-0.2.6
         - trigger:
             project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
 - job:
     name: extern-mingwcross-libevent
     project-type: matrix
@@ -790,6 +798,8 @@
             project: tor-ci-mingwcross-0.2.6
         - trigger:
             project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
 ###############################################################
 ### tor browser manual
 ###############################################################

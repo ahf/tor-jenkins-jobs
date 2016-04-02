@@ -72,13 +72,13 @@
 ###############################################################
 ### tor
 ###############################################################
-- job:
-    name: tor-ci-linux-master
+- job-template:
+    name: 'tor-ci-linux-{version}'
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
             branches:
-                - master
+                - '{branch_name}'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
@@ -104,114 +104,23 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
         - trigger:
-            project: tor-ci-linux-master-extra-arm
+            project: 'tor-ci-linux-{version}-extra-arm'
         - trigger:
-            project: tor-ci-freebsd-amd64-master
-- job:
-    name: tor-ci-linux-0.2.5
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.5
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-        - trigger:
-            project: tor-ci-linux-0.2.5-extra-arm
-        - trigger:
-            project: tor-ci-freebsd-amd64-0.2.5
-- job:
-    name: tor-ci-linux-0.2.6
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.6
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-        - trigger:
-            project: tor-ci-linux-0.2.6-extra-arm
-        - trigger:
-            project: tor-ci-freebsd-amd64-0.2.6
-- job:
-    name: tor-ci-linux-0.2.7
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            branches:
-                - maint-0.2.7
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    publishers:
-        - email-ext:
-                recipients: tor-jenkins@commit.noreply.org
-                subject: Tor Jenkins build status
-                body: |
-                      project: $PROJECT_NAME
-                      build: $BUILD_NUMBER
-                      status: $BUILD_STATUS
-                      url: $BUILD_URL
-                unstable: true
-                first-failure: true
-                not-built: true
-                #aborted: true
-                regression: true
-                failure: true
-                improvement: true
-                still-failing: true
-                #success: true
-                fixed: true
-                still-unstable: true
-                #pre-build: true
-                matrixTriggerMode: ONLY_PARENT
-        - trigger:
-            project: tor-ci-linux-0.2.7-extra-arm
-        - trigger:
-            project: tor-ci-freebsd-amd64-0.2.7
+            project: 'tor-ci-freebsd-amd64-{version}'
+- project:
+    name: tor-ci-linux
+    version:
+      - master:
+          branch_name: master
+      - 0.2.5:
+          branch_name: maint-0.2.5
+      - 0.2.6:
+          branch_name: maint-0.2.6
+      - 0.2.7:
+          branch_name: maint-0.2.7
+    jobs:
+      - 'tor-ci-linux-{version}'
+
 - job:
     name: tor-ci-linux-master-extra-arm
     scm: []

@@ -509,7 +509,7 @@
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
-    name: tor-ci-mingwcross
+    name: tor-ci-mingwcross-master
     project-type: matrix
     execution-strategy:
         sequential: false
@@ -549,11 +549,11 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
         - trigger:
-            project: tor-ci-mingwcross-test
+            project: tor-ci-mingwcross-master-test
         - trigger:
-            project: tor-ci-mingwcross-test-native
+            project: tor-ci-mingwcross-master-test-native
 - job:
-    name: tor-ci-mingwcross-test
+    name: tor-ci-mingwcross-master-test
     project-type: matrix
     execution-strategy:
         sequential: false
@@ -572,18 +572,18 @@
     scm: []
     builders:
         - copyartifact:
-            project: tor-ci-mingwcross
+            project: tor-ci-mingwcross-master
             which-build: "upstream-build"
             fallback-to-last-successful: true
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 - job:
-    name: tor-ci-mingwcross-test-native
+    name: tor-ci-mingwcross-master-test-native
     project-type: freestyle
     node: windows
     scm: []
     builders:
         - copyartifact:
-            project: tor-ci-mingwcross
+            project: tor-ci-mingwcross-master
             which-build: "upstream-build"
             fallback-to-last-successful: true
         - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
@@ -2049,7 +2049,7 @@
         - archive:
             artifacts: "RESULT.zlib.tar.gz"
         - trigger:
-            project: tor-ci-mingwcross
+            project: tor-ci-mingwcross-master
         - trigger:
             project: tor-ci-mingwcross-0.2.5
         - trigger:
@@ -2088,7 +2088,7 @@
         - archive:
             artifacts: "RESULT.openssl.tar.gz"
         - trigger:
-            project: tor-ci-mingwcross
+            project: tor-ci-mingwcross-master
         - trigger:
             project: tor-ci-mingwcross-0.2.5
         - trigger:
@@ -2127,7 +2127,7 @@
         - archive:
             artifacts: "RESULT.libevent.tar.gz"
         - trigger:
-            project: tor-ci-mingwcross
+            project: tor-ci-mingwcross-master
         - trigger:
             project: tor-ci-mingwcross-0.2.5
         - trigger:

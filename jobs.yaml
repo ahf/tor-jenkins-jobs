@@ -33,6 +33,10 @@
        - git:
            url: "{git-url}"
            basedir: source
+    triggers:
+       - pollscm:
+           cron: "17 1 * * *"
+           ignore-post-commit-hooks: True
     execution-strategy:
         sequential: false
         touchstone:

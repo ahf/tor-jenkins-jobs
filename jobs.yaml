@@ -119,6 +119,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - '{branch_name}'
     builders:
@@ -179,6 +180,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - '{branch_name}'
     builders:
@@ -207,6 +209,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             basedir: tor
             branches:
                 - '{branch_name}'
@@ -273,6 +276,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - '{branch_name}'
             basedir: tor
@@ -312,6 +316,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - '${COMMIT}'
             basedir: tor
@@ -341,12 +346,14 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
               - '{branch_name}'
               - '{debian_upstream_release_branch}'
             basedir: tor
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
+            fastpoll: true
             branches:
                 - '{debian_branch}'
             basedir: debian-tor
@@ -400,11 +407,13 @@
     scm:
         - git:
             url: 'https://git.torproject.org/debian/tor.git'
+            fastpoll: true
             basedir: debian
             branches:
                 - "master"
         - git:
             url: 'https://git.torproject.org/debian/tor-pristine-upstream.git'
+            fastpoll: true
             basedir: pristine-upstream
             branches:
                 - "master"
@@ -453,6 +462,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tlsdate.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -465,6 +475,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/torsocks.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -477,6 +488,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/stem.git'
+            fastpoll: true
             branches:
                 - master
     execution-strategy:
@@ -495,6 +507,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -513,6 +526,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/stem.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -535,6 +549,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/pyptlib'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -552,6 +567,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/pluggable-transports/obfsproxy'
+            fastpoll: true
             branches:
                 - master
                 - test_2_021
@@ -571,6 +587,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/libevent.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -588,6 +605,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/openssl.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -610,6 +628,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/qt.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -633,6 +652,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/zlib.git'
+            fastpoll: true
             branches:
                 - master
     builders:
@@ -669,6 +689,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/zlib.git'
+            fastpoll: true
             basedir: zlib
             branches:
                 - master
@@ -710,6 +731,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/openssl.git'
+            fastpoll: true
             basedir: openssl
             branches:
                 - master
@@ -751,6 +773,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/extern/libevent.git'
+            fastpoll: true
             basedir: libevent
             branches:
                 - master
@@ -779,11 +802,13 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor-browser/user-manual.git'
+            fastpoll: true
             basedir: user-manual
             branches:
                 - "master"
         - git:
             url: 'https://git.torproject.org/builders/tor-browser-bundle.git'
+            fastpoll: true
             basedir: tor-browser-bundle
             branches:
                 - "master"
@@ -836,11 +861,13 @@
     scm:
         - git:
             url: 'https://git.torproject.org/project/web/webwml.git'
+            fastpoll: true
             basedir: webwml
             branches:
                 - "master"
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - master
             basedir: tor
@@ -879,11 +906,13 @@
     scm:
         - git:
             url: 'https://git.torproject.org/project/web/webwml.git'
+            fastpoll: true
             basedir: webwml
             branches:
                 - "staging"
         - git:
             url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
             branches:
                 - master
             basedir: tor

@@ -407,7 +407,7 @@
     parameters:
         - string:
             name: "DEBIAN_VERSION"
-            description: "debian version to build"
+            description: "debian version to build (e.g. 0.2.8.1-alpha-1)"
     scm:
         - git:
             url: 'https://git.torproject.org/debian/tor.git'

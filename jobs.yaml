@@ -33,7 +33,6 @@
        - git:
            url: "{git-url}"
            basedir: source
-           fastpoll: true
     execution-strategy:
         sequential: false
         touchstone:

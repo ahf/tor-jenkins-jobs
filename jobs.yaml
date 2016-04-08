@@ -421,6 +421,9 @@
             basedir: pristine-upstream
             branches:
                 - "master"
+    triggers:
+       - pollscm:
+           ignore-post-commit-hooks: True
     builders:
         - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
     publishers:

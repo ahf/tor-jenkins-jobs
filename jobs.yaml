@@ -36,7 +36,7 @@
     triggers:
        - pollscm:
            cron: "17 1 * * *"
-           ignore-post-commit-hooks: True
+           ignore-post-commit-hooks: False
     execution-strategy:
         sequential: false
         touchstone:

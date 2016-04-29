@@ -516,7 +516,7 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 CONFIGURE_VARIANT=0 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper CONFIGURE_VARIANT"
     publishers:
         - archive:
             artifacts: "build-tree-tor/src/or/tor"

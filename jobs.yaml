@@ -117,6 +117,16 @@
       - 'tor-debian-{version}-nightly-binaries'
       - 'tor-debian-{version}-nightly-install'
 
+- project:
+    name: tor-ci-linux-expensive-hardening
+    version:
+      - master:
+          branch_name: '{version}'
+          debian_upstream_release_branch: '{version}'
+          debian_branch: '{version}'
+    jobs:
+      - 'tor-ci-linux-{version}-expensive-hardening'
+
 
 - job-template:
     name: 'tor-ci-linux-{version}'
@@ -134,6 +144,17 @@
             project: 'tor-ci-linux-{version}-extra-arm'
         - trigger:
             project: 'tor-ci-freebsd-amd64-{version}'
+
+- job-template:
+    name: 'tor-ci-linux-{version}-expensive-hardening'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
 - job-template:
     name: 'tor-ci-linux-{version}-extra-arm'
@@ -516,7 +537,7 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 CONFIGURE_VARIANT=0 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper CONFIGURE_VARIANT"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "build-tree-tor/src/or/tor"

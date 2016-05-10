@@ -540,7 +540,7 @@
         - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
-            artifacts: "build-tree-tor/src/or/tor"
+            artifacts: "RESULT/tor"
         - trigger:
             project: stem-tor-ci
         - notify-tor-irc

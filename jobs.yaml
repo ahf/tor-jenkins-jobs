@@ -127,6 +127,20 @@
     jobs:
       - 'tor-ci-linux-{version}-expensive-hardening'
 
+- project:
+    name: tor-ci-linux-exp-openssl
+    version:
+      - master:
+          branch_name: '{version}'
+          debian_upstream_release_branch: '{version}'
+          debian_branch: '{version}'
+      - 0.2.8:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'master'
+    jobs:
+      - 'tor-ci-linux-{version}-exp-openssl'
+
 
 - job-template:
     name: 'tor-ci-linux-{version}'
@@ -202,6 +216,37 @@
             values:
                 - sid
                 #- experimental
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-linux-{version}-exp-openssl'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="experimental")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                #- sid
+                - experimental
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

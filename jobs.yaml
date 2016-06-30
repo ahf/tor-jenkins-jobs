@@ -143,7 +143,6 @@
       - gcc
     jobs:
       - 'tor-ci-linux-{version}-exp-{type}'
-      - 'tor-ci-linux-{version}-exp-{type}'
 
 
 - job-template:

@@ -128,7 +128,7 @@
       - 'tor-ci-linux-{version}-expensive-hardening'
 
 - project:
-    name: tor-ci-linux-exp-openssl
+    name: tor-ci-linux-experimental
     version:
       - master:
           branch_name: '{version}'
@@ -138,8 +138,12 @@
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
           debian_branch: 'master'
+    type:
+      - openssl
+      - gcc
     jobs:
-      - 'tor-ci-linux-{version}-exp-openssl'
+      - 'tor-ci-linux-{version}-exp-{type}'
+      - 'tor-ci-linux-{version}-exp-{type}'
 
 
 - job-template:
@@ -226,7 +230,7 @@
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
 - job-template:
-    name: 'tor-ci-linux-{version}-exp-openssl'
+    name: 'tor-ci-linux-{version}-exp-{type}'
     project-type: matrix
     execution-strategy:
         sequential: false

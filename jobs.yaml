@@ -59,7 +59,6 @@
                 - sid
                 - precise
                 - trusty
-                - wily
                 - xenial
     logrotate:
         daysToKeep: -1

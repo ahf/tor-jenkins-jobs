@@ -102,7 +102,11 @@
       - 0.2.8:
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'master'
+          debian_branch: 'debian-{version}'
+      #- 0.2.9:
+      #    branch_name: 'maint-{version}'
+      #    debian_upstream_release_branch: 'release-{version}'
+      #    debian_branch: 'master'
     jobs:
       - 'tor-ci-linux-{version}'
       - 'tor-ci-linux-{version}-extra-arm'

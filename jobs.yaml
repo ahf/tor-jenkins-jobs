@@ -139,7 +139,6 @@
           debian_branch: 'master'
     type:
       - openssl
-      - gcc
     jobs:
       - 'tor-ci-linux-{version}-exp-{type}'
 

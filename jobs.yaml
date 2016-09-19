@@ -177,6 +177,17 @@
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
 - job-template:
+    name: 'tor-ci-linux-{version}-tor2webmode'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
     name: 'tor-ci-linux-{version}-extra-arm'
     scm: []
     builders:

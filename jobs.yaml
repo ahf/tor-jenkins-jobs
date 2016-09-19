@@ -121,7 +121,7 @@
       - 'tor-debian-{version}-nightly-install'
 
 - project:
-    name: tor-ci-linux-expensive-hardening
+    name: tor-ci-linux-variants
     version:
       - master:
           branch_name: '{version}'
@@ -129,6 +129,7 @@
           debian_branch: '{version}'
     jobs:
       - 'tor-ci-linux-{version}-expensive-hardening'
+      - 'tor-ci-linux-{version}-tor2webmode'
 
 - project:
     name: tor-ci-linux-experimental

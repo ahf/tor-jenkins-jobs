@@ -60,6 +60,7 @@
                 - precise
                 - trusty
                 - xenial
+                - yakkety
     logrotate:
         daysToKeep: -1
         numToKeep: 5

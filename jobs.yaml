@@ -768,11 +768,6 @@
 - job:
     name: extern-mingwcross-zlib
     project-type: matrix
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
     axes:
         - axis:
             type: label-expression
@@ -812,11 +807,6 @@
 - job:
     name: extern-mingwcross-openssl
     project-type: matrix
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
     axes:
         - axis:
             type: label-expression
@@ -856,11 +846,6 @@
 - job:
     name: extern-mingwcross-libevent
     project-type: matrix
-    execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
     axes:
         - axis:
             type: label-expression

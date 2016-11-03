@@ -23,6 +23,15 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
 
+- execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
+    # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
+    name: execution-strategy-openssl11restriction
+    sequential: false
+    touchstone:
+      expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+      result: stable
+    combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") )'
+
 - defaults:
     name: global
     description: 'Do not edit this job through the web'
@@ -468,11 +477,7 @@
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
     execution-strategy:
-        sequential: false
-        touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
-            result: stable
-        combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") )'
+      <<: *execution-strategy-openssl11restriction
     publishers:
         - archive:
             artifacts: "RESULT/*"

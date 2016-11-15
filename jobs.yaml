@@ -1059,4 +1059,4 @@
             branches:
                 - master
     builders:
-        - shell: '~/jenkins-tools/slaves/linux/metrics-lib-master
+        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

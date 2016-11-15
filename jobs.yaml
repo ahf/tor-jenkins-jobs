@@ -1045,3 +1045,18 @@
             flatten: true
             target: incoming
         - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website-staging"
+###############################################################
+### metrics-lib
+###############################################################
+- job:
+    name: metrics-lib-master
+    project-type: freestyle
+    node: linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/metrics-lib.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: '~/jenkins-tools/slaves/linux/metrics-lib-master

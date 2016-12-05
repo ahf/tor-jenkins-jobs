@@ -23,6 +23,14 @@
                 #pre-build: true
                 matrixTriggerMode: ONLY_PARENT
 
+- publisher:
+    name: post-workspace-cleanup
+    publishers:
+        - workspace-cleanup:
+            dirmatch: true
+            include:
+              - "**"
+
 - combination-filter-openssl11restriction: &combination-filter-openssl11restriction
     # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
     name: combination-filter-openssl11restriction
@@ -90,7 +98,8 @@
             timeout: 600
             fail: true
     publishers:
-      - notify-tor-irc
+        - notify-tor-irc
+        - post-workspace-cleanup
 
 # our actual projects
 ###############################################################
@@ -180,11 +189,12 @@
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     <<: *execution-strategy-openssl11restriction
     publishers:
-        - notify-tor-irc
         - trigger:
             project: 'tor-ci-linux-{version}-extra-arm'
         - trigger:
             project: 'tor-ci-freebsd-amd64-{version}'
+        - notify-tor-irc
+        - post-workspace-cleanup
 
 - job-template:
     name: 'tor-ci-linux-{version}-expensive-hardening'
@@ -341,6 +351,8 @@
             project: 'tor-ci-mingwcross-{version}-test'
         - trigger:
             project: 'tor-ci-mingwcross-{version}-test-native'
+        - notify-tor-irc
+        - post-workspace-cleanup
 
 - job-template:
     name: 'tor-ci-mingwcross-{version}-test'
@@ -405,6 +417,7 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
         - notify-tor-irc
+        - post-workspace-cleanup
 
 
 - job-template:
@@ -445,6 +458,7 @@
         - archive:
             artifacts: "RESULT.tor.tar.gz"
         - notify-tor-irc
+        - post-workspace-cleanup
 
 
 
@@ -475,6 +489,7 @@
         - trigger:
             project: 'tor-debian-{version}-nightly-binaries'
         - notify-tor-irc
+        - post-workspace-cleanup
 - job-template:
     name: 'tor-debian-{version}-nightly-binaries'
     scm: []
@@ -492,6 +507,7 @@
         - trigger:
             project: 'tor-debian-{version}-nightly-install'
         - notify-tor-irc
+        - post-workspace-cleanup
 - job-template:
     name: 'tor-debian-{version}-nightly-install'
     project-type: freestyle
@@ -537,6 +553,7 @@
         - trigger:
             project: tor-debian-release-binaries
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: tor-debian-release-binaries
     scm: []
@@ -553,6 +570,7 @@
         - trigger:
             project: tor-debian-release-install
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: tor-debian-release-install
     project-type: freestyle
@@ -630,6 +648,7 @@
         - trigger:
             project: stem-tor-ci
         - notify-tor-irc
+        - post-workspace-cleanup
 
 - job:
     name: stem-tor-ci
@@ -651,6 +670,7 @@
                 recipients: atagar@torproject.org
                 subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
                 body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
+        - post-workspace-cleanup
 ###############################################################
 ### obfsproxy and friends
 ###############################################################
@@ -672,6 +692,7 @@
         - trigger:
             project: obfsproxy-ci-linux
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: obfsproxy-ci-linux
     project-type: freestyle
@@ -710,6 +731,7 @@
         - trigger:
             project: tor-ci-windows-master
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: extern-windows-openssl
     project-type: freestyle
@@ -733,6 +755,7 @@
         - trigger:
             project: extern-windows-qt
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: extern-windows-qt
     project-type: freestyle
@@ -757,6 +780,7 @@
         - trigger:
             project: vidalia-ci-windows
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: extern-windows-zlib
     project-type: freestyle
@@ -777,6 +801,7 @@
         - trigger:
             project: extern-windows-qt
         - notify-tor-irc
+        - post-workspace-cleanup
 ###########
 - job:
     name: extern-mingwcross-zlib
@@ -817,6 +842,8 @@
             project: tor-ci-mingwcross-0.2.8
         - trigger:
             project: tor-ci-mingwcross-0.2.9
+        - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: extern-mingwcross-openssl
     project-type: matrix
@@ -856,6 +883,8 @@
             project: tor-ci-mingwcross-0.2.8
         - trigger:
             project: tor-ci-mingwcross-0.2.9
+        - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: extern-mingwcross-libevent
     project-type: matrix
@@ -895,6 +924,8 @@
             project: tor-ci-mingwcross-0.2.8
         - trigger:
             project: tor-ci-mingwcross-0.2.9
+        - notify-tor-irc
+        - post-workspace-cleanup
 ###############################################################
 ### tor browser manual
 ###############################################################
@@ -923,6 +954,7 @@
         - trigger:
             project: tb-manual-install
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: tb-manual-install
     project-type: freestyle
@@ -957,6 +989,7 @@
         - trigger:
             project: website-build-webwml
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: website-build-webwml
     project-type: freestyle
@@ -987,6 +1020,7 @@
         - trigger:
             project: website-install
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: website-install
     project-type: freestyle
@@ -1032,6 +1066,7 @@
         - trigger:
             project: website-staging-install
         - notify-tor-irc
+        - post-workspace-cleanup
 - job:
     name: website-staging-install
     project-type: freestyle

@@ -951,6 +951,10 @@
     publishers:
         - archive:
             artifacts: "RESULT/html.tar.gz"
+        - email-ext:
+                recipients: colin@torproject.org
+                subject: Build ${BUILD_NUMBER} of tb-manual failed - log attached
+                body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
         - trigger:
             project: tb-manual-install
         - notify-tor-irc

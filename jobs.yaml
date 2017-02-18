@@ -183,6 +183,7 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - '{branch_name}'
         - git:
@@ -208,6 +209,7 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - '{branch_name}'
     builders:
@@ -219,6 +221,7 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - '{branch_name}'
     builders:
@@ -644,6 +647,7 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - master
     builders:
@@ -1014,9 +1018,9 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - master
-            basedir: tor
     builders:
         - copyartifact:
             project: website-build-blog-snippets
@@ -1060,9 +1064,9 @@
         - git:
             url: 'https://git.torproject.org/tor.git'
             fastpoll: true
+            basedir: tor
             branches:
                 - master
-            basedir: tor
     builders:
         - copyartifact:
             project: website-build-blog-snippets

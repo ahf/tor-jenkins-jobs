@@ -185,6 +185,12 @@
             fastpoll: true
             branches:
                 - '{branch_name}'
+        - git:
+            url: 'https://git.torproject.org/fuzzing-corpora.git'
+            fastpoll: true
+            branches:
+                - master
+            basedir: fuzzing-corpora
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     <<: *execution-strategy-openssl11restriction

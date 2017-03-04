@@ -121,8 +121,8 @@
           debian_upstream_release_branch: 'release-{version}'
           debian_branch: 'debian-{version}'
       - 0.2.7:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
+          branch_name: 'maint-{version}-redux'
+          debian_upstream_release_branch: 'release-{version}-redux'
           debian_branch: 'debian-{version}'
       - 0.2.8:
           branch_name: 'maint-{version}'

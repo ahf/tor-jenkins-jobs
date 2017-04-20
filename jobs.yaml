@@ -84,6 +84,7 @@
                 - trusty
                 - xenial
                 - yakkety
+                - zesty
     logrotate:
         daysToKeep: -1
         numToKeep: 5

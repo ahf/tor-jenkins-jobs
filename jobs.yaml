@@ -42,7 +42,7 @@
     execution-strategy:
       sequential: false
       touchstone:
-        expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+        expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
         result: stable
       <<: *combination-filter-openssl11restriction
 
@@ -63,7 +63,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
             result: stable
     axes:
         - axis:
@@ -242,7 +242,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="jessie")'
+            expr: '(ARCHITECTURE=="armhf" && SUITE=="stretch")'
             result: stable
         <<: *combination-filter-openssl11restriction
     axes:
@@ -256,7 +256,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
                 - sid
 
 - job-template:
@@ -328,7 +328,7 @@
     execution-strategy:
         sequential: false
         #touchstone:
-        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
         #    result: stable
     axes:
         - axis:
@@ -341,7 +341,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
@@ -386,7 +386,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
     scm: []
     builders:
         - copyartifact:
@@ -498,7 +498,7 @@
                 - '{debian_branch}'
             basedir: debian-tor
     builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -562,7 +562,7 @@
                 - "master"
     triggers: []
     builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -640,7 +640,7 @@
     execution-strategy:
         sequential: true
         touchstone:
-            expr: '(ARCHITECTURE=="amd64" && SUITE=="jessie")'
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
             result: stable
         combination-filter: '(SUITE!="precise")'
     builders:
@@ -681,7 +681,7 @@
         - copyartifact:
             project: stem-tor-ci-base
             which-build: "last-successful"
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - email-ext:
                 recipients: atagar@torproject.org
@@ -834,7 +834,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
     scm:
         - git:
             url: 'https://git.torproject.org/extern/zlib.git'
@@ -877,7 +877,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
     scm:
         - git:
             url: 'https://git.torproject.org/extern/openssl.git'
@@ -920,7 +920,7 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
+                - stretch
     scm:
         - git:
             url: 'https://git.torproject.org/extern/libevent.git'
@@ -1009,7 +1009,7 @@
     project-type: freestyle
     node: Linux
     builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/blog-snippets.wmi"
@@ -1040,7 +1040,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/webwml.tar.gz"
@@ -1086,7 +1086,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/webwml.tar.gz"
@@ -1121,4 +1121,4 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=jessie ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

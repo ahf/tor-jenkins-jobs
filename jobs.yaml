@@ -34,7 +34,7 @@
 - combination-filter-openssl11restriction: &combination-filter-openssl11restriction
     # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
     name: combination-filter-openssl11restriction
-    combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") )'
+    combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") && (SUITE != "buster") )'
 
 - execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
     # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
@@ -79,6 +79,7 @@
                 - wheezy
                 - jessie
                 - stretch
+                - buster
                 - sid
                 - precise
                 - trusty

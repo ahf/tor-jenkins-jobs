@@ -14,7 +14,6 @@
         touchstone:
             expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
             result: stable
-        combination-filter: '(SUITE!="precise")'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 

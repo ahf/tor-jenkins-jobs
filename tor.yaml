@@ -494,12 +494,7 @@
                 - "master"
     triggers: []
     builders:
-        - shell: |
-            case "{version}" in
-              0.2.5|0.2.6|0.2.7) suite=jessie
-              *) suite=stretch
-            esac
-            SUITE="$suite" ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
     publishers:
         - archive:
             artifacts: "RESULT/*"

@@ -601,19 +601,6 @@
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
 ###############################################################
-### tlsdate
-###############################################################
-- job:
-    name: tlsdate-ci-linux
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tlsdate.git'
-            fastpoll: true
-            branches:
-                - master
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-###############################################################
 ### torsocks
 ###############################################################
 - job:

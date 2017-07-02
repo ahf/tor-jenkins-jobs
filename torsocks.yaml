@@ -1,0 +1,13 @@
+###############################################################
+### torsocks
+###############################################################
+- job:
+    name: torsocks-ci-linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/torsocks.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

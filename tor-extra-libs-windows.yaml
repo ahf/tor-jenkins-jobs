@@ -1,0 +1,222 @@
+###############################################################
+### external libraries
+###############################################################
+- job:
+    name: extern-windows-libevent
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/libevent.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.libevent.tar.gz"
+        - trigger:
+            project: tor-ci-windows-master
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: extern-windows-openssl
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/openssl.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.openssl.tar.gz"
+        - trigger:
+            project: tor-ci-windows-master
+        - trigger:
+            project: extern-windows-qt
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: extern-windows-qt
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/qt.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.qt.tar.gz"
+        - trigger:
+            project: vidalia-ci-windows
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: extern-windows-zlib
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/zlib.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.zlib.tar.gz"
+        - trigger:
+            project: extern-windows-openssl
+        - trigger:
+            project: extern-windows-qt
+        - notify-tor-irc
+        - post-workspace-cleanup
+###########
+- job:
+    name: extern-mingwcross-zlib
+    project-type: matrix
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/zlib.git'
+            fastpoll: true
+            basedir: zlib
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.zlib.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross-master
+        - trigger:
+            project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
+        - trigger:
+            project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
+        - trigger:
+            project: tor-ci-mingwcross-0.2.9
+        - trigger:
+            project: tor-ci-mingwcross-0.3.0
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: extern-mingwcross-openssl
+    project-type: matrix
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/openssl.git'
+            fastpoll: true
+            basedir: openssl
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.openssl.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross-master
+        - trigger:
+            project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
+        - trigger:
+            project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
+        - trigger:
+            project: tor-ci-mingwcross-0.2.9
+        - trigger:
+            project: tor-ci-mingwcross-0.3.0
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: extern-mingwcross-libevent
+    project-type: matrix
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+    scm:
+        - git:
+            url: 'https://git.torproject.org/extern/libevent.git'
+            fastpoll: true
+            basedir: libevent
+            branches:
+                - master
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.libevent.tar.gz"
+        - trigger:
+            project: tor-ci-mingwcross-master
+        - trigger:
+            project: tor-ci-mingwcross-0.2.5
+        - trigger:
+            project: tor-ci-mingwcross-0.2.6
+        - trigger:
+            project: tor-ci-mingwcross-0.2.7
+        - trigger:
+            project: tor-ci-mingwcross-0.2.8
+        - trigger:
+            project: tor-ci-mingwcross-0.2.9
+        - trigger:
+            project: tor-ci-mingwcross-0.3.0
+        - notify-tor-irc
+        - post-workspace-cleanup

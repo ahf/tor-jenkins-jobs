@@ -1,0 +1,62 @@
+###############################################################
+### stem
+###############################################################
+- job:
+    name: stem-ci-linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/stem.git'
+            fastpoll: true
+            branches:
+                - master
+    execution-strategy:
+        sequential: true
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
+            result: stable
+        combination-filter: '(SUITE!="precise")'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job:
+    name: stem-tor-ci-base
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - master
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/tor"
+        - trigger:
+            project: stem-tor-ci
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job:
+    name: stem-tor-ci
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/stem.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - copyartifact:
+            project: stem-tor-ci-base
+            which-build: "last-successful"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - email-ext:
+                recipients: atagar@torproject.org
+                subject: Build ${BUILD_NUMBER} of stem-tor-ci failed - log attached
+                body: ${BUILD_LOG, maxLines=9999, escapeHtml=false}
+        - post-workspace-cleanup

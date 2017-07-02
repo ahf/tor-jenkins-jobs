@@ -1,0 +1,90 @@
+- publisher:
+    name: notify-tor-irc
+    publishers:
+        - email-ext:
+                recipients: tor-jenkins@commit.noreply.org
+                subject: Tor Jenkins build status
+                body: |
+                      project: $PROJECT_NAME
+                      build: $BUILD_NUMBER
+                      status: $BUILD_STATUS
+                      url: $BUILD_URL
+                unstable: true
+                first-failure: true
+                not-built: true
+                #aborted: true
+                regression: true
+                failure: true
+                improvement: true
+                still-failing: true
+                #success: true
+                fixed: true
+                still-unstable: true
+                #pre-build: true
+                matrixTriggerMode: ONLY_PARENT
+
+- publisher:
+    name: post-workspace-cleanup
+    publishers:
+        - workspace-cleanup:
+            dirmatch: true
+            include:
+              - "**"
+
+- defaults:
+    name: global
+    description: 'Do not edit this job through the web'
+    project-type: matrix
+    block-upstream: true
+    node: master
+    scm:
+       - git:
+           url: "{git-url}"
+           basedir: source
+    triggers:
+       - pollscm:
+           cron: "17 1 * * *"
+           ignore-post-commit-hooks: False
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
+            result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - wheezy
+                - jessie
+                - stretch
+                - buster
+                - sid
+                - precise
+                - trusty
+                - xenial
+                - yakkety
+                - zesty
+    logrotate:
+        daysToKeep: -1
+        numToKeep: 5
+        artifactDaysToKeep: -1
+        artifactNumToKeep: -1
+    wrappers:
+        - workspace-cleanup:
+            include:
+              - "**"
+        - timestamps
+        - timeout:
+            timeout: 600
+            fail: true
+    publishers:
+        - notify-tor-irc
+        - post-workspace-cleanup
+

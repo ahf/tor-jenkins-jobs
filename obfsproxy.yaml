@@ -1,0 +1,39 @@
+###############################################################
+### obfsproxy and friends
+###############################################################
+- job:
+    name: pyptlib-ci-linux
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/pluggable-transports/pyptlib'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.pyptlib.tar.gz"
+        - trigger:
+            project: obfsproxy-ci-linux
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: obfsproxy-ci-linux
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/pluggable-transports/obfsproxy'
+            fastpoll: true
+            branches:
+                - master
+                - test_2_021
+    builders:
+        - copyartifact:
+            project: pyptlib-ci-linux
+            which-build: "last-successful"
+        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+

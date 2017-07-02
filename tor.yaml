@@ -1,0 +1,511 @@
+- combination-filter-openssl11restriction: &combination-filter-openssl11restriction
+    # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
+    name: combination-filter-openssl11restriction
+    combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") && (SUITE != "buster") )'
+
+- execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
+    # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
+    name: execution-strategy-openssl11restriction
+    execution-strategy:
+      sequential: false
+      touchstone:
+        expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
+        result: stable
+      <<: *combination-filter-openssl11restriction
+
+###############################################################
+### tor
+###############################################################
+- project:
+    name: tor-ci-linux
+    version:
+      - master:
+          branch_name: '{version}'
+          debian_upstream_release_branch: '{version}'
+          debian_branch: '{version}'
+      - 0.2.5:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.2.6:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.2.7:
+          branch_name: 'maint-{version}-redux'
+          debian_upstream_release_branch: 'release-{version}-redux'
+          debian_branch: 'debian-{version}'
+      - 0.2.8:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.2.9:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          debian_branch: 'debian-{version}'
+      - 0.3.0:
+          branch_name: 'maint-{version}'
+          debian_upstream_release_branch: 'release-{version}'
+          #debian_branch: 'debian-{version}'
+          debian_branch: 'master'
+    jobs:
+      - 'tor-ci-linux-{version}'
+      - 'tor-ci-linux-{version}-extra-arm'
+      - 'tor-ci-linux-{version}-clang'
+      - 'tor-ci-mingwcross-{version}'
+      - 'tor-ci-mingwcross-{version}-test'
+      - 'tor-ci-mingwcross-{version}-test-native'
+      - 'tor-ci-windows-{version}'
+      - 'tor-ci-freebsd-amd64-{version}'
+      - 'tor-debian-{version}-nightly-source'
+      - 'tor-debian-{version}-nightly-binaries'
+      - 'tor-debian-{version}-nightly-install'
+
+- project:
+    name: tor-ci-linux-variants
+    version:
+      - master:
+          branch_name: '{version}'
+          debian_upstream_release_branch: '{version}'
+          debian_branch: '{version}'
+    jobs:
+      - 'tor-ci-linux-{version}-expensive-hardening'
+      - 'tor-ci-linux-{version}-tor2webmode'
+
+#- project:
+#    name: tor-ci-linux-experimental
+#    version:
+#      - master:
+#          branch_name: '{version}'
+#          debian_upstream_release_branch: '{version}'
+#          debian_branch: '{version}'
+#      - 0.2.8:
+#          branch_name: 'maint-{version}'
+#          debian_upstream_release_branch: 'release-{version}'
+#          debian_branch: 'master'
+#      - 0.2.9:
+#          branch_name: 'maint-{version}'
+#          debian_upstream_release_branch: 'release-{version}'
+#          debian_branch: 'master'
+#    type:
+#      - openssl
+#    jobs:
+#      - 'tor-ci-linux-{version}-exp-{type}'
+
+
+- job-template:
+    name: 'tor-ci-linux-{version}'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+        - git:
+            url: 'https://git.torproject.org/fuzzing-corpora.git'
+            fastpoll: true
+            branches:
+                - master
+            basedir: fuzzing-corpora
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    <<: *execution-strategy-openssl11restriction
+    publishers:
+        - trigger:
+            project: 'tor-ci-linux-{version}-extra-arm'
+        - trigger:
+            project: 'tor-ci-freebsd-amd64-{version}'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job-template:
+    name: 'tor-ci-linux-{version}-expensive-hardening'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-linux-{version}-tor2webmode'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-linux-{version}-extra-arm'
+    scm: []
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="armhf" && SUITE=="stretch")'
+            result: stable
+        <<: *combination-filter-openssl11restriction
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - armhf
+                - armel
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+                - sid
+
+- job-template:
+    name: 'tor-ci-linux-{version}-clang'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+        <<: *combination-filter-openssl11restriction
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+                #- experimental
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+#- job-template:
+#    name: 'tor-ci-linux-{version}-exp-{type}'
+#    project-type: matrix
+#    execution-strategy:
+#        sequential: false
+#        touchstone:
+#            expr: '(ARCHITECTURE=="i386" && SUITE=="experimental")'
+#            result: stable
+#        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+#    axes:
+#        - axis:
+#            type: label-expression
+#            name: ARCHITECTURE
+#            values:
+#                - amd64
+#                - i386
+#        - axis:
+#            type: label-expression
+#            name: SUITE
+#            values:
+#                #- sid
+#                - experimental
+#    scm:
+#        - git:
+#            url: 'https://git.torproject.org/tor.git'
+#            fastpoll: true
+#            branches:
+#                - '{branch_name}'
+#    builders:
+#        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-mingwcross-{version}'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        #touchstone:
+        #    expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
+        #    result: stable
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+    builders:
+        - copyartifact:
+            project: extern-mingwcross-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-mingwcross-zlib
+            which-build: "last-successful"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - trigger:
+            project: 'tor-ci-mingwcross-{version}-test'
+        - trigger:
+            project: 'tor-ci-mingwcross-{version}-test-native'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job-template:
+    name: 'tor-ci-mingwcross-{version}-test'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+    scm: []
+    builders:
+        - copyartifact:
+            project: 'tor-ci-mingwcross-{version}'
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-mingwcross-{version}-test-native'
+    project-type: freestyle
+    node: windows
+    scm: []
+    builders:
+        - copyartifact:
+            project: 'tor-ci-mingwcross-{version}'
+            which-build: "upstream-build"
+            fallback-to-last-successful: true
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+
+- job-template:
+    name: 'tor-ci-windows-{version}'
+    project-type: freestyle
+    node: windows
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '{branch_name}'
+            basedir: tor
+    builders:
+        - copyartifact:
+            project: extern-windows-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+
+- job-template:
+    name: 'tor-ci-freebsd-amd64-{version}'
+    project-type: freestyle
+    node: freebsd-amd64
+    scm: []
+    builders:
+        - shell: '~/jenkins-tools/slaves/other/build-wrapper'
+
+- job:
+    name: tor-ci-windows-commit
+    project-type: freestyle
+    node: windows
+    parameters:
+        - string:
+            name: "COMMIT"
+            description: "commit digest"
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+                - '${COMMIT}'
+            basedir: tor
+    builders:
+        - copyartifact:
+            project: extern-windows-libevent
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-openssl
+            which-build: "last-successful"
+        - copyartifact:
+            project: extern-windows-zlib
+            which-build: "last-successful"
+        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+    publishers:
+        - archive:
+            artifacts: "RESULT.tor.tar.gz"
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+
+
+#### nightly .debs
+- job-template:
+    name: 'tor-debian-{version}-nightly-source'
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            branches:
+              - '{branch_name}'
+              - '{debian_upstream_release_branch}'
+            basedir: tor
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            fastpoll: true
+            branches:
+                - '{debian_branch}'
+            basedir: debian-tor
+    builders:
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: 'tor-debian-{version}-nightly-binaries'
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job-template:
+    name: 'tor-debian-{version}-nightly-binaries'
+    scm: []
+    builders:
+        - copyartifact:
+            project: 'tor-debian-{version}-nightly-source'
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
+    <<: *execution-strategy-openssl11restriction
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: 'tor-debian-{version}-nightly-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job-template:
+    name: 'tor-debian-{version}-nightly-install'
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: 'tor-debian-{version}-nightly-binaries'
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
+
+#### .debs: release builds
+- job:
+    name: tor-debian-release-source
+    project-type: freestyle
+    node: Linux
+    parameters:
+        - string:
+            name: "DEBIAN_VERSION"
+            description: "debian version to build (e.g. 0.2.8.1-alpha-1)"
+    scm:
+        - git:
+            url: 'https://git.torproject.org/debian/tor.git'
+            fastpoll: true
+            basedir: debian
+            branches:
+                - "master"
+        - git:
+            url: 'https://git.torproject.org/debian/tor-pristine-upstream.git'
+            fastpoll: true
+            basedir: pristine-upstream
+            branches:
+                - "master"
+    triggers: []
+    builders:
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-release-binaries
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: tor-debian-release-binaries
+    scm: []
+    builders:
+        - copyartifact:
+            project: tor-debian-release-source
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        - trigger:
+            project: tor-debian-release-install
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: tor-debian-release-install
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-release-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"

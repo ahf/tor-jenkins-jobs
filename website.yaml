@@ -1,0 +1,111 @@
+###############################################################
+### website
+###############################################################
+- job:
+    name: website-build-blog-snippets
+    project-type: freestyle
+    node: Linux
+    scm: []
+    triggers:
+      - timed: '@daily'
+    project-type: freestyle
+    node: Linux
+    builders:
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/blog-snippets.wmi"
+        - trigger:
+            project: website-build-webwml
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: website-build-webwml
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/project/web/webwml.git'
+            fastpoll: true
+            basedir: webwml
+            branches:
+                - "master"
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - master
+    builders:
+        - copyartifact:
+            project: website-build-blog-snippets
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/webwml.tar.gz"
+        - trigger:
+            project: website-install
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: website-install
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: website-build-webwml
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website"
+
+###############################################################
+- job:
+    name: website-staging-build-webwml
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/project/web/webwml.git'
+            fastpoll: true
+            basedir: webwml
+            branches:
+                - "staging"
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - master
+    builders:
+        - copyartifact:
+            project: website-build-blog-snippets
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/webwml.tar.gz"
+        - trigger:
+            project: website-staging-install
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
+    name: website-staging-install
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: website-staging-build-webwml
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org jenkins-website-staging"

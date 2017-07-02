@@ -26,10 +26,10 @@ USAGE
 ======
 To update jenkins jobs:
 
-jenkins-jobs update jobs.yaml
+jenkins-jobs update .
 
 To produce test xml output::
 
-jenkins-jobs test -o /tmp/outdir jobs.yaml
+jenkins-jobs test -o /tmp/outdir .
 
 You can add -l DEBUG to the commands to get debug output.

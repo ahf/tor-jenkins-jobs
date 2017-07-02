@@ -1,0 +1,15 @@
+###############################################################
+### metrics-lib
+###############################################################
+- job:
+    name: metrics-lib-master
+    project-type: freestyle
+    node: Linux
+    scm:
+        - git:
+            url: 'https://git.torproject.org/metrics-lib.git'
+            fastpoll: true
+            branches:
+                - master
+    builders:
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

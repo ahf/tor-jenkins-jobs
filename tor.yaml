@@ -1,7 +1,16 @@
 - combination-filter-openssl11restriction: &combination-filter-openssl11restriction
-    # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
+    # Tor versions older than 0.2.8.x fail to build with openssl 1.1.x and later.  Do not
+    # test this unsupported configuration.
     name: combination-filter-openssl11restriction
-    combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") && (SUITE != "buster") )'
+    combination-filter: '
+        ("{version}" == "0.2.5" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="precise" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" || SUITE=="zesty") ) ||
+        ("{version}" == "0.2.6" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="precise" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" || SUITE=="zesty") ) ||
+        ("{version}" == "0.2.7" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="precise" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" || SUITE=="zesty") ) ||
+
+        ("{version}" != "0.2.5" &&
+         "{version}" != "0.2.6" &&
+         "{version}" != "0.2.7" )
+        '
 
 - execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
     # Tor versions older than 0.2.8.x fail to build with openssl 1.1.x and later.  Do not

@@ -4,12 +4,22 @@
     combination-filter: '( ("{version}" != "0.2.5") && ("{version}" != "0.2.6") && ("{version}" != "0.2.7")) || ( (SUITE != "sid") && (SUITE != "stretch") && (SUITE != "buster") )'
 
 - execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
-    # This is for jobs that want to avoid building tor prior to 0.2.8.x on OSs that do ship with openssl 1.1.x
+    # Tor versions older than 0.2.8.x fail to build with openssl 1.1.x and later.  Do not
+    # test this unsupported configuration.
     name: execution-strategy-openssl11restriction
     execution-strategy:
       sequential: false
       touchstone:
-        expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
+        expr: '
+            ("{version}" == "0.2.5" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
+            ("{version}" == "0.2.6" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
+            ("{version}" == "0.2.7" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
+
+            ("{version}" != "0.2.5" &&
+             "{version}" != "0.2.6" &&
+             "{version}" != "0.2.7" && ARCHITECTURE=="amd64" && SUITE=="stretch")
+            '
+        #expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
         result: stable
       <<: *combination-filter-openssl11restriction
 

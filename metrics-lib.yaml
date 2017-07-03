@@ -7,8 +7,15 @@
     node: Linux
     scm:
         - git:
+            url: 'https://git.torproject.org/metrics-base'
+            fastpoll: true
+            basedir: metrics-base
+            branches:
+                - master
+        - git:
             url: 'https://git.torproject.org/metrics-lib.git'
             fastpoll: true
+            basedir: metrics-lib
             branches:
                 - master
     builders:

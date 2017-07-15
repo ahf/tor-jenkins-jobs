@@ -29,7 +29,7 @@
             branches:
                 - master
     builders:
-        - shell: "SUITE=wheezy ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/tor"

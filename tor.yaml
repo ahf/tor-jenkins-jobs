@@ -4,12 +4,8 @@
     name: combination-filter-openssl11restriction
     combination-filter: '
         ("{version}" == "0.2.5" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" ) ) ||
-        ("{version}" == "0.2.6" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" ) ) ||
-        ("{version}" == "0.2.7" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" ) ) ||
 
-        ("{version}" != "0.2.5" &&
-         "{version}" != "0.2.6" &&
-         "{version}" != "0.2.7" )
+        ("{version}" != "0.2.5")
         '
 
 - execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
@@ -21,12 +17,8 @@
       touchstone:
         expr: '
             ("{version}" == "0.2.5" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
-            ("{version}" == "0.2.6" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
-            ("{version}" == "0.2.7" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
 
-            ("{version}" != "0.2.5" &&
-             "{version}" != "0.2.6" &&
-             "{version}" != "0.2.7" && ARCHITECTURE=="amd64" && SUITE=="stretch")
+            ("{version}" != "0.2.5" && ARCHITECTURE=="amd64" && SUITE=="stretch")
             '
         #expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
         result: stable
@@ -45,14 +37,6 @@
       - 0.2.5:
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
-      - 0.2.6:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
-      - 0.2.7:
-          branch_name: 'maint-{version}-redux'
-          debian_upstream_release_branch: 'release-{version}-redux'
           debian_branch: 'debian-{version}'
       - 0.2.8:
           branch_name: 'maint-{version}'
@@ -432,7 +416,7 @@
     builders:
         - shell: |
             case "{version}" in
-              0.2.5|0.2.6|0.2.7) suite=jessie
+              0.2.5) suite=jessie
               ;;
               *) suite=stretch
               ;;

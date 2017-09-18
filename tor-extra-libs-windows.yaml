@@ -130,8 +130,6 @@
             project: tor-ci-mingwcross-0.3.0
         - trigger:
             project: tor-ci-mingwcross-0.3.1
-        - trigger:
-            project: tor-ci-mingwcross-0.3.2
         - notify-tor-irc
         - post-workspace-cleanup
 - job:
@@ -173,8 +171,6 @@
             project: tor-ci-mingwcross-0.3.0
         - trigger:
             project: tor-ci-mingwcross-0.3.1
-        - trigger:
-            project: tor-ci-mingwcross-0.3.2
         - notify-tor-irc
         - post-workspace-cleanup
 - job:
@@ -216,7 +212,5 @@
             project: tor-ci-mingwcross-0.3.0
         - trigger:
             project: tor-ci-mingwcross-0.3.1
-        - trigger:
-            project: tor-ci-mingwcross-0.3.2
         - notify-tor-irc
         - post-workspace-cleanup

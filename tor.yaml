@@ -3,7 +3,7 @@
     # test this unsupported configuration.
     name: combination-filter-openssl11restriction
     combination-filter: '
-        ("{version}" == "0.2.5" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" || SUITE=="yakkety" ) ) ||
+        ("{version}" == "0.2.5" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" ) ) ||
 
         ("{version}" != "0.2.5")
         '

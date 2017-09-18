@@ -68,7 +68,6 @@
                 - sid
                 - trusty
                 - xenial
-                - yakkety
                 - zesty
     logrotate:
         daysToKeep: -1

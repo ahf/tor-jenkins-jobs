@@ -69,6 +69,7 @@
                 - trusty
                 - xenial
                 - zesty
+                - artful
     logrotate:
         daysToKeep: -1
         numToKeep: 5

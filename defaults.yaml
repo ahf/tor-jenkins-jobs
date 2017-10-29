@@ -70,6 +70,7 @@
                 - xenial
                 - zesty
                 - artful
+                - bionic
     logrotate:
         daysToKeep: -1
         numToKeep: 5

@@ -85,7 +85,6 @@
           debian_branch: '{version}'
     jobs:
       - 'tor-ci-linux-{version}-expensive-hardening'
-      - 'tor-ci-linux-{version}-tor2webmode'
 
 #- project:
 #    name: tor-ci-linux-experimental
@@ -134,18 +133,6 @@
 
 - job-template:
     name: 'tor-ci-linux-{version}-expensive-hardening'
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            fastpoll: true
-            basedir: tor
-            branches:
-                - '{branch_name}'
-    builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-
-- job-template:
-    name: 'tor-ci-linux-{version}-tor2webmode'
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

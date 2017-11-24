@@ -72,6 +72,7 @@
       - 'tor-ci-mingwcross-{version}-test'
       - 'tor-ci-mingwcross-{version}-test-native'
       - 'tor-ci-windows-{version}'
+      - 'tor-ci-freebsd-amd64-{version}'
       - 'tor-debian-{version}-nightly-source'
       - 'tor-debian-{version}-nightly-binaries'
       - 'tor-debian-{version}-nightly-install'
@@ -128,6 +129,8 @@
     publishers:
         - trigger:
             project: 'tor-ci-linux-{version}-extra-arm'
+        - trigger:
+            project: 'tor-ci-freebsd-amd64-{version}'
         - notify-tor-irc
         - post-workspace-cleanup
 
@@ -344,6 +347,14 @@
         - notify-tor-irc
         - post-workspace-cleanup
 
+
+- job-template:
+    name: 'tor-ci-freebsd-amd64-{version}'
+    project-type: freestyle
+    node: freebsd-amd64
+    scm: []
+    builders:
+        - shell: '~/jenkins-tools/slaves/other/build-wrapper'
 
 - job:
     name: tor-ci-windows-commit

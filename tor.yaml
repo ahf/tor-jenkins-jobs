@@ -154,7 +154,7 @@
     execution-strategy:
         sequential: false
         touchstone:
-            expr: '(ARCHITECTURE=="armhf" && SUITE=="stretch")'
+            expr: '(ARCHITECTURE=="arm64" && SUITE=="stretch")'
             result: stable
         <<: *combination-filter-openssl11restriction
     axes:
@@ -162,6 +162,7 @@
             type: label-expression
             name: ARCHITECTURE
             values:
+                - arm64
                 - armhf
                 - armel
         - axis:

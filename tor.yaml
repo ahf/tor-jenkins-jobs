@@ -149,6 +149,26 @@
 
 - job-template:
     name: 'tor-ci-linux-{version}-rust'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        touchstone:
+            expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
+            result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+        <<: *combination-filter-openssl11restriction
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - amd64
+                - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'

@@ -86,6 +86,7 @@
           debian_branch: '{version}'
     jobs:
       - 'tor-ci-linux-{version}-expensive-hardening'
+      - 'tor-ci-linux-{version}-rust'
 
 #- project:
 #    name: tor-ci-linux-experimental
@@ -143,6 +144,24 @@
             basedir: tor
             branches:
                 - '{branch_name}'
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+
+- job-template:
+    name: 'tor-ci-linux-{version}-rust'
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+        - git:
+            url: 'https://git.torproject.org/user/sebastian/tor-rust-dependencies'
+            fastpoll: true
+            branches:
+                - master
+            basedir: ext-tor-rust-dependencies
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 

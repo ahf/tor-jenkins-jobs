@@ -553,6 +553,53 @@
         - notify-tor-irc
         - post-workspace-cleanup
 - job:
+    name: tor-debian-release-binaries-arm
+    scm: []
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
+                - armhf
+                - armel
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - stretch
+                - sid
+                - wheezy
+                - jessie
+                - stretch
+                - buster
+                - sid
+                - trusty
+                - xenial
+                - zesty
+                - artful
+                - bionic
+    execution-strategy:
+        sequential: false
+        combination-filter: '
+            ( ARCHITECTURE=="armel" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" || SUITE=="jessie" || SUITE=="wheezy" ) ) ||
+            ( ARCHITECTURE=="armhf" )
+            '
+    builders:
+        - copyartifact:
+            project: tor-debian-release-source
+            which-build: "last-successful"
+            #which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
+    publishers:
+        - archive:
+            artifacts: "RESULT/*"
+        #- trigger:
+        #    project: tor-debian-release-install
+        - notify-tor-irc
+        - post-workspace-cleanup
+- job:
     name: tor-debian-release-install
     project-type: freestyle
     node: master

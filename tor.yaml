@@ -164,6 +164,9 @@
             values:
                 - amd64
                 - i386
+                - arm64
+                - armhf
+                - armel
         - axis:
             type: label-expression
             name: SUITE

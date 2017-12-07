@@ -164,8 +164,8 @@
             values:
                 - amd64
                 - i386
-                #- arm64
-                #- armhf
+                - arm64
+                - armhf
         - axis:
             type: label-expression
             name: SUITE
@@ -191,7 +191,7 @@
                 - master
             basedir: fuzzing-corpora
     builders:
-        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper -t tor -t ext-tor-rust-dependencies -t fuzzing-corpora"
 
 - job-template:
     name: 'tor-ci-linux-{version}-extra-arm'

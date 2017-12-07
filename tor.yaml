@@ -87,6 +87,7 @@
     jobs:
       - 'tor-ci-linux-{version}-expensive-hardening'
       - 'tor-ci-linux-{version}-rust'
+      - 'tor-ci-linux-{version}-rust-arm'
 
 #- project:
 #    name: tor-ci-linux-experimental
@@ -164,6 +165,53 @@
             values:
                 - amd64
                 - i386
+        - axis:
+            type: label-expression
+            name: SUITE
+            values:
+                - sid
+    scm:
+        - git:
+            url: 'https://git.torproject.org/tor.git'
+            fastpoll: true
+            basedir: tor
+            branches:
+                - '{branch_name}'
+        - git:
+            url: 'https://git.torproject.org/user/sebastian/tor-rust-dependencies'
+            fastpoll: true
+            branches:
+                - master
+            basedir: ext-tor-rust-dependencies
+        - git:
+            url: 'https://git.torproject.org/fuzzing-corpora.git'
+            fastpoll: true
+            branches:
+                - master
+            basedir: fuzzing-corpora
+    builders:
+        - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper -t tor -t ext-tor-rust-dependencies -t fuzzing-corpora"
+    publishers:
+        - trigger:
+            project: 'tor-ci-linux-{version}-rust-arm'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job-template:
+    name: 'tor-ci-linux-{version}-rust-arm'
+    project-type: matrix
+    execution-strategy:
+        sequential: false
+        #touchstone:
+        #    expr: '(ARCHITECTURE=="armhf" && SUITE=="sid")'
+        #    result: stable
+        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
+        <<: *combination-filter-openssl11restriction
+    axes:
+        - axis:
+            type: label-expression
+            name: ARCHITECTURE
+            values:
                 - arm64
                 - armhf
         - axis:

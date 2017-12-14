@@ -646,8 +646,8 @@
     publishers:
         - archive:
             artifacts: "RESULT/*"
-        #- trigger:
-        #    project: tor-debian-release-install
+        - trigger:
+            project: tor-debian-release-install-arm
         - notify-tor-irc
         - post-workspace-cleanup
 - job:
@@ -659,6 +659,19 @@
         - shell: 'true'
         - copyartifact:
             project: tor-debian-release-binaries
+            which-build: "upstream-build"
+            flatten: true
+            target: incoming
+        - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"
+- job:
+    name: tor-debian-release-install-arm
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: tor-debian-release-binaries-arm
             which-build: "upstream-build"
             flatten: true
             target: incoming

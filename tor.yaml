@@ -618,8 +618,6 @@
             type: label-expression
             name: SUITE
             values:
-                - stretch
-                - sid
                 - wheezy
                 - jessie
                 - stretch

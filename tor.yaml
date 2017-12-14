@@ -577,7 +577,7 @@
                 - "master"
     triggers: []
     builders:
-        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper DEBIAN_VERSION"
+        - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper -k DEBIAN_VERSION"
     publishers:
         - archive:
             artifacts: "RESULT/*"

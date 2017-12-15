@@ -646,7 +646,6 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-install-arm
-            predefined-parameters: 'BUILD_SELECTOR=${BUILD_NUMBER}'
         - notify-tor-irc
         - post-workspace-cleanup
 - job:

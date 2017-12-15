@@ -646,6 +646,7 @@
             artifacts: "RESULT/*"
         - trigger:
             project: tor-debian-release-install-arm
+            predefined-parameters: 'BUILD_SELECTOR=${BUILD_NUMBER}'
         - notify-tor-irc
         - post-workspace-cleanup
 - job:
@@ -665,12 +666,17 @@
     name: tor-debian-release-install-arm
     project-type: freestyle
     node: master
+    parameters:
+        - string:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
     scm: []
     builders:
         - shell: 'true'
         - copyartifact:
             project: tor-debian-release-binaries-arm
-            which-build: "upstream-build"
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
             flatten: true
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"

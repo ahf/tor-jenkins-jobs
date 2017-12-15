@@ -667,7 +667,7 @@
     project-type: freestyle
     node: master
     parameters:
-        - copyartifact_build_selector_param:
+        - copyartifact-build-selector:
             name: "BUILD_SELECTOR"
             description: "Upstream build to install"
             which-build: "upstream-build"

@@ -589,11 +589,17 @@
         - post-workspace-cleanup
 - job:
     name: tor-debian-release-binaries
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
     scm: []
     builders:
         - copyartifact:
             project: tor-debian-release-source
-            which-build: "upstream-build"
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
@@ -606,6 +612,11 @@
         - post-workspace-cleanup
 - job:
     name: tor-debian-release-binaries-arm
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
     scm: []
     axes:
         - axis:
@@ -637,7 +648,8 @@
     builders:
         - copyartifact:
             project: tor-debian-release-source
-            which-build: "upstream-build"
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
@@ -652,12 +664,18 @@
     name: tor-debian-release-install
     project-type: freestyle
     node: master
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
     scm: []
     builders:
         - shell: 'true'
         - copyartifact:
             project: tor-debian-release-binaries
-            which-build: "upstream-build"
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
             flatten: true
             target: incoming
         - shell: "rsync -v incoming/*/* tordeb@palmeri.torproject.org:-overridden-server-side- && ssh tordeb@palmeri.torproject.org dinstall"

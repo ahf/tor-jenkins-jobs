@@ -636,7 +636,6 @@
                 - sid
                 - trusty
                 - xenial
-                - zesty
                 - artful
                 - bionic
     execution-strategy:

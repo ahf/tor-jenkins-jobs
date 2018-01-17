@@ -68,7 +68,6 @@
                 - sid
                 - trusty
                 - xenial
-                - zesty
                 - artful
                 - bionic
     logrotate:

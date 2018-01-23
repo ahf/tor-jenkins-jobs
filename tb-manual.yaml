@@ -83,7 +83,7 @@
     builders:
         - shell: 'true'
         - copyartifact:
-            project: tb-manual
+            project: tb-manual-alpha
             which-build: "last-successful"
             flatten: true
             target: incoming

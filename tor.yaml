@@ -182,7 +182,7 @@
             branches:
                 - '{branch_name}'
         - git:
-            url: 'https://git.torproject.org/user/sebastian/tor-rust-dependencies'
+            url: 'https://git.torproject.org/tor-rust-dependencies'
             fastpoll: true
             branches:
                 - master
@@ -231,7 +231,7 @@
             branches:
                 - '{branch_name}'
         - git:
-            url: 'https://git.torproject.org/user/sebastian/tor-rust-dependencies'
+            url: 'https://git.torproject.org/tor-rust-dependencies'
             fastpoll: true
             branches:
                 - master

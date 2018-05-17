@@ -43,7 +43,7 @@
            basedir: source
     triggers:
        - pollscm:
-           cron: "17 1 * * *"
+           cron: "H 1 * * *"
            ignore-post-commit-hooks: False
     execution-strategy:
         sequential: false

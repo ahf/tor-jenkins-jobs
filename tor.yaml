@@ -132,10 +132,6 @@
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     <<: *execution-strategy-openssl11restriction
     publishers:
-        - trigger:
-            project: 'tor-ci-linux-{version}-extra-arm'
-        - trigger:
-            project: 'tor-ci-freebsd-amd64-{version}'
         - notify-tor-irc
         - post-workspace-cleanup
 
@@ -144,10 +140,14 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            ignore-notify: true
             fastpoll: true
             basedir: tor
             branches:
                 - '{branch_name}'
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
@@ -176,6 +176,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            ignore-notify: true
             fastpoll: true
             basedir: tor
             branches:
@@ -188,15 +189,17 @@
             basedir: ext-tor-rust-dependencies
         - git:
             url: 'https://git.torproject.org/fuzzing-corpora.git'
+            ignore-notify: true
             fastpoll: true
             branches:
                 - master
             basedir: fuzzing-corpora
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper -t tor -t ext-tor-rust-dependencies -t fuzzing-corpora"
     publishers:
-        - trigger:
-            project: 'tor-ci-linux-{version}-rust-arm'
         - notify-tor-irc
         - post-workspace-cleanup
 
@@ -225,6 +228,7 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            ignore-notify: true
             fastpoll: true
             basedir: tor
             branches:
@@ -237,16 +241,23 @@
             basedir: ext-tor-rust-dependencies
         - git:
             url: 'https://git.torproject.org/fuzzing-corpora.git'
+            ignore-notify: true
             fastpoll: true
             branches:
                 - master
             basedir: fuzzing-corpora
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}-rust'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper -t tor -t ext-tor-rust-dependencies -t fuzzing-corpora"
 
 - job-template:
     name: 'tor-ci-linux-{version}-extra-arm'
     scm: []
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     execution-strategy:
@@ -296,9 +307,13 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            ignore-notify: true
             fastpoll: true
             branches:
                 - '{branch_name}'
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}'
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
 
@@ -356,10 +371,14 @@
     scm:
         - git:
             url: 'https://git.torproject.org/tor.git'
+            ignore-notify: true
             fastpoll: true
             basedir: tor
             branches:
                 - '{branch_name}'
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-linux-{version}'
     builders:
         - copyartifact:
             project: extern-mingwcross-libevent
@@ -374,10 +393,6 @@
     publishers:
         - archive:
             artifacts: "RESULT.tor.tar.gz"
-        - trigger:
-            project: 'tor-ci-mingwcross-{version}-test'
-        - trigger:
-            project: 'tor-ci-mingwcross-{version}-test-native'
         - notify-tor-irc
         - post-workspace-cleanup
 
@@ -399,6 +414,9 @@
             values:
                 - stretch
     scm: []
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-mingwcross-{version}'
     builders:
         - copyartifact:
             project: 'tor-ci-mingwcross-{version}'
@@ -411,6 +429,9 @@
     project-type: freestyle
     node: windows
     scm: []
+    triggers:
+       - reverse:
+           jobs: 'tor-ci-mingwcross-{version}'
     builders:
         - copyartifact:
             project: 'tor-ci-mingwcross-{version}'

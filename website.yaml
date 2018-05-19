@@ -9,7 +9,6 @@
     triggers:
       - timed: '@daily'
     project-type: freestyle
-    node: Linux
     builders:
         - shell: "SUITE=stretch ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:

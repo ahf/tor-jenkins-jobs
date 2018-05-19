@@ -626,6 +626,7 @@
             type: label-expression
             name: ARCHITECTURE
             values:
+                - arm64
                 - armhf
                 - armel
         - axis:
@@ -645,7 +646,8 @@
         sequential: false
         combination-filter: '
             ( ARCHITECTURE=="armel" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" || SUITE=="jessie" || SUITE=="wheezy" ) ) ||
-            ( ARCHITECTURE=="armhf" )
+            ( ARCHITECTURE=="armhf" ) ||
+            ( ARCHITECTURE=="arm64" && ( SUITE!="wheezy" ) )
             '
     builders:
         - copyartifact:

@@ -5,6 +5,9 @@
     name: website-build-blog-snippets
     project-type: freestyle
     node: Linux
+    properties:
+      - priority-sorter:
+            priority: 2
     scm: []
     triggers:
       - timed: '@daily'
@@ -22,6 +25,9 @@
     name: website-build-webwml
     project-type: freestyle
     node: Linux
+    properties:
+      - priority-sorter:
+            priority: 2
     scm:
         - git:
             url: 'https://git.torproject.org/project/web/webwml.git'
@@ -68,6 +74,9 @@
     name: website-staging-build-webwml
     project-type: freestyle
     node: Linux
+    properties:
+      - priority-sorter:
+            priority: 2
     scm:
         - git:
             url: 'https://git.torproject.org/project/web/webwml.git'

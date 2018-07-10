@@ -667,6 +667,7 @@
                 - xenial
                 - artful
                 - bionic
+                - cosmic
     execution-strategy:
         sequential: false
         combination-filter: '

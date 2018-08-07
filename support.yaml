@@ -10,7 +10,7 @@
             priority: 2
     scm:
         - git:
-            url: 'https://gitweb.torproject.org/project/web/support.git'
+            url: 'https://git.torproject.org/project/web/support.git'
             fastpoll: true
             basedir: support
             branches:

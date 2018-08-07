@@ -1,0 +1,24 @@
+###############################################################
+### website
+###############################################################
+- job:
+    name: support-portal
+    project-type: freestyle
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 2
+    scm:
+        - git:
+            url: 'https://gitweb.torproject.org/project/web/support.git'
+            fastpoll: true
+            basedir: support
+            branches:
+                - "master"
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/support.tar.gz"
+        - notify-tor-irc
+        - post-workspace-cleanup

@@ -20,10 +20,10 @@
     publishers:
         - archive:
             artifacts: "RESULT/support.tar.gz"
-        - notify-tor-irc
-        - post-workspace-cleanup
         - trigger:
             project: 'support-portal-{branch}-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
 - job-template:
     name: 'support-portal-{branch}-install'
     project-type: freestyle

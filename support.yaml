@@ -22,3 +22,56 @@
             artifacts: "RESULT/support.tar.gz"
         - notify-tor-irc
         - post-workspace-cleanup
+        - trigger:
+            project: support-install
+- job:
+    name: support-install
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: support-portal
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org support-website"
+
+###############################################################
+- job:
+    name: support-portal-staging
+    project-type: freestyle
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 2
+    scm:
+        - git:
+            url: 'https://git.torproject.org/project/web/support.git'
+            fastpoll: true
+            basedir: support
+            branches:
+                - "staging"
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/support.tar.gz"
+        - notify-tor-irc
+        - post-workspace-cleanup
+        - trigger:
+            project: support-staging-install
+- job:
+    name: support-staging-install
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: support-portal-staging
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org support-website-staging"

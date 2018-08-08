@@ -23,7 +23,7 @@
         - notify-tor-irc
         - post-workspace-cleanup
         - trigger:
-            project: 'support-install-{branch}'
+            project: 'support-portal-{branch}-install'
 - job-template:
     name: 'support-portal-{branch}-install'
     project-type: freestyle

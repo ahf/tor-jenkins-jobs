@@ -19,7 +19,7 @@
         - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
-            artifacts: "RESULT/support.tar.gz"
+            artifacts: "RESULT/support-portal.tar.gz"
         - trigger:
             project: 'support-portal-{branch}-install'
         - notify-tor-irc
@@ -36,7 +36,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "cat incoming/webwml.tar.gz | ssh torwww@staticiforme.torproject.org support-website-{branch}"
+        - shell: "cat incoming/support-portal.tar.gz | ssh torwww@staticiforme.torproject.org support-website-{branch}"
 
 - project:
     name: support-portal

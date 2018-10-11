@@ -282,6 +282,7 @@
             type: label-expression
             name: SUITE
             values:
+                - jessie
                 - stretch
                 - sid
 

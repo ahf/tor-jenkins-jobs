@@ -46,18 +46,6 @@
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
           debian_branch: 'debian-{version}'
-      - 0.3.0:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
-      - 0.3.1:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
-      - 0.3.2:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
       - 0.3.3:
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'

@@ -659,7 +659,6 @@
                 - sid
                 - trusty
                 - xenial
-                - artful
                 - bionic
                 - cosmic
     execution-strategy:

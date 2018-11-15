@@ -121,8 +121,6 @@
         - trigger:
             project: tor-ci-mingwcross-master
         - trigger:
-            project: tor-ci-mingwcross-0.2.5
-        - trigger:
             project: tor-ci-mingwcross-0.2.9
         - trigger:
             project: tor-ci-mingwcross-0.3.3
@@ -162,8 +160,6 @@
         - trigger:
             project: tor-ci-mingwcross-master
         - trigger:
-            project: tor-ci-mingwcross-0.2.5
-        - trigger:
             project: tor-ci-mingwcross-0.2.9
         - trigger:
             project: tor-ci-mingwcross-0.3.3
@@ -202,8 +198,6 @@
             artifacts: "RESULT.libevent.tar.gz"
         - trigger:
             project: tor-ci-mingwcross-master
-        - trigger:
-            project: tor-ci-mingwcross-0.2.5
         - trigger:
             project: tor-ci-mingwcross-0.2.9
         - trigger:

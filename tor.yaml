@@ -1,29 +1,3 @@
-- combination-filter-openssl11restriction: &combination-filter-openssl11restriction
-    # Tor versions older than 0.2.8.x fail to build with openssl 1.1.x and later.  Do not
-    # test this unsupported configuration.
-    name: combination-filter-openssl11restriction
-    combination-filter: '
-        ("{version}" == "0.2.5" && (SUITE=="wheezy" || SUITE=="jessie" || SUITE=="trusty" || SUITE=="xenial" ) ) ||
-
-        ("{version}" != "0.2.5")
-        '
-
-- execution-strategy-openssl11restriction: &execution-strategy-openssl11restriction
-    # Tor versions older than 0.2.8.x fail to build with openssl 1.1.x and later.  Do not
-    # test this unsupported configuration.
-    name: execution-strategy-openssl11restriction
-    execution-strategy:
-      sequential: false
-      touchstone:
-        expr: '
-            ("{version}" == "0.2.5" && ARCHITECTURE=="amd64" && SUITE=="jessie") ||
-
-            ("{version}" != "0.2.5" && ARCHITECTURE=="amd64" && SUITE=="stretch")
-            '
-        #expr: '(ARCHITECTURE=="amd64" && SUITE=="stretch")'
-        result: stable
-      <<: *combination-filter-openssl11restriction
-
 ###############################################################
 ### tor
 ###############################################################
@@ -34,10 +8,6 @@
           branch_name: '{version}'
           debian_upstream_release_branch: '{version}'
           debian_branch: '{version}'
-      - 0.2.5:
-          branch_name: 'maint-{version}'
-          debian_upstream_release_branch: 'release-{version}'
-          debian_branch: 'debian-{version}'
       - 0.2.9:
           branch_name: 'maint-{version}'
           debian_upstream_release_branch: 'release-{version}'
@@ -119,7 +89,6 @@
             basedir: fuzzing-corpora
     builders:
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
-    <<: *execution-strategy-openssl11restriction
     publishers:
         - notify-tor-irc
         - post-workspace-cleanup
@@ -149,7 +118,6 @@
             expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
             result: stable
         #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
-        <<: *combination-filter-openssl11restriction
     axes:
         - axis:
             type: label-expression
@@ -197,11 +165,6 @@
     project-type: matrix
     execution-strategy:
         sequential: false
-        #touchstone:
-        #    expr: '(ARCHITECTURE=="armhf" && SUITE=="sid")'
-        #    result: stable
-        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
-        <<: *combination-filter-openssl11restriction
     axes:
         - axis:
             type: label-expression
@@ -254,7 +217,6 @@
         touchstone:
             expr: '(ARCHITECTURE=="arm64" && SUITE=="stretch")'
             result: stable
-        <<: *combination-filter-openssl11restriction
     axes:
         - axis:
             type: label-expression
@@ -279,8 +241,6 @@
         touchstone:
             expr: '(ARCHITECTURE=="i386" && SUITE=="sid")'
             result: stable
-        #combination-filter: '(ARCHITECTURE=="amd64" || SUITE=="experimental")'
-        <<: *combination-filter-openssl11restriction
     axes:
         - axis:
             type: label-expression
@@ -521,13 +481,7 @@
             basedir: debian-tor
     builders:
         - shell: |
-            case "{version}" in
-              0.2.5) suite=jessie
-              ;;
-              *) suite=stretch
-              ;;
-            esac
-            SUITE="$suite" ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper
+            SUITE="stretch" ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -545,7 +499,6 @@
             flatten: true
             target: incoming
         - shell: "/home/jenkins/jenkins-tools/slaves/linux/tor-debian-master-nightly-binaries"
-    <<: *execution-strategy-openssl11restriction
     publishers:
         - archive:
             artifacts: "RESULT/*"
@@ -653,6 +606,7 @@
                 - xenial
                 - bionic
                 - cosmic
+                - disco
     execution-strategy:
         sequential: false
         combination-filter: '

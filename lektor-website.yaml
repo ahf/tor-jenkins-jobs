@@ -86,7 +86,7 @@
       - tor-browser-manual:
           giturl: https://git.torproject.org/project/web/manual.git
     jobs:
-      - 'lektor-website-{site}'
+      - 'lektor-website-TEST-{site}'
 
 
 

@@ -80,20 +80,6 @@
         - notify-tor-irc
         - post-workspace-cleanup
 
-- job-template:
-    name: 'lektor-website-{site}-install'
-    project-type: freestyle
-    node: master
-    scm: []
-    builders:
-        - shell: 'true'
-        - copyartifact:
-            project: 'lektor-website-{site}'
-            which-build: "last-successful"
-            flatten: true
-            target: incoming
-        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
-
 - project:
     name: lektor-website-TEST
     site:
@@ -101,7 +87,6 @@
           giturl: https://git.torproject.org/project/web/manual.git
     jobs:
       - 'lektor-website-{site}'
-      - 'lektor-website-{site}-install'
 
 
 

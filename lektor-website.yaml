@@ -93,7 +93,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}-staging"
+        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
 
 
 - project:

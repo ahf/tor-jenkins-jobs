@@ -82,7 +82,7 @@
         - post-workspace-cleanup
 
 - job-template:
-    name: 'lektor-website-{site}-install'
+    name: 'lektor-website-{site}-staging-install'
     project-type: freestyle
     node: master
     scm: []

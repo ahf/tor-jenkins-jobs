@@ -79,21 +79,21 @@
         - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
 
 
-- project:
-    name: lektor-website
-    site:
-      - newsletter:
-          giturl: https://git.torproject.org/project/web/newsletter.git
-      - support:
-          giturl: https://git.torproject.org/project/web/support.git
-      - styleguide:
-          giturl: https://git.torproject.org/project/web/styleguide.git
-      - tor-browser-manual:
-          giturl: https://git.torproject.org/project/web/manual.git
-
-    jobs:
-      - 'lektor-website-{site}'
-      - 'lektor-website-{site}-install'
+#- project:
+#    name: lektor-website
+#    site:
+#      - newsletter:
+#          giturl: https://git.torproject.org/project/web/newsletter.git
+#      - support:
+#          giturl: https://git.torproject.org/project/web/support.git
+#      - styleguide:
+#          giturl: https://git.torproject.org/project/web/styleguide.git
+#      - tor-browser-manual:
+#          giturl: https://git.torproject.org/project/web/manual.git
+#
+#    jobs:
+#      - 'lektor-website-{site}'
+#      - 'lektor-website-{site}-install'
 
 - project:
     name: lektor-website-staging

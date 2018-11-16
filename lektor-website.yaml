@@ -29,12 +29,18 @@
     name: 'lektor-website-{site}-install'
     project-type: freestyle
     node: master
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
     scm: []
     builders:
         - shell: 'true'
         - copyartifact:
             project: 'lektor-website-{site}'
-            which-build: "last-successful"
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
             flatten: true
             target: incoming
         - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"

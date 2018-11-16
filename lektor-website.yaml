@@ -95,14 +95,14 @@
       - 'lektor-website-{site}'
       - 'lektor-website-{site}-install'
 
-#- project:
-#    name: lektor-website-staging
-#    site:
-#      - support:
-#          giturl: https://git.torproject.org/project/web/support.git
-#      - tor-browser-manual:
-#          giturl: https://git.torproject.org/project/web/manual.git
-#
-#    jobs:
-#      - 'lektor-website-{site}-staging'
-#      - 'lektor-website-{site}-staging-install'
+- project:
+    name: lektor-website-staging
+    site:
+      - support:
+          giturl: https://git.torproject.org/project/web/support.git
+      - tor-browser-manual:
+          giturl: https://git.torproject.org/project/web/manual.git
+
+    jobs:
+      - 'lektor-website-{site}-staging'
+      - 'lektor-website-{site}-staging-install'

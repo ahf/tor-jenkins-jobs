@@ -14,7 +14,7 @@
             fastpoll: true
             basedir: website
             branches:
-                - staging
+                - master
     builders:
         - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:

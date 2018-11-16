@@ -5,6 +5,9 @@
     name: 'lektor-website-{site}'
     project-type: freestyle
     node: Linux
+    properties:
+      - priority-sorter:
+            priority: 10
     scm:
         - git:
             url: '{giturl}'

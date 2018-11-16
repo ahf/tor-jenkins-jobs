@@ -54,3 +54,53 @@
     jobs:
       - 'lektor-website-{site}'
       - 'lektor-website-{site}-install'
+
+###############################################################
+
+- job-template:
+    name: 'lektor-website-{site}-staging'
+    project-type: freestyle
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 5
+    scm:
+        - git:
+            url: '{giturl}'
+            fastpoll: true
+            basedir: website
+            branches:
+                - staging
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/output.tar.gz"
+        - trigger:
+            project: 'lektor-website-{site}-staging-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job-template:
+    name: 'lektor-website-{site}-install'
+    project-type: freestyle
+    node: master
+    scm: []
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: 'lektor-website-{site}-staging'
+            which-build: "last-successful"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
+
+
+- project:
+    name: lektor-website-staging
+    site:
+      - support:
+          giturl: https://git.torproject.org/project/web/support.git
+    jobs:
+      - 'lektor-website-{site}-staging'
+      - 'lektor-website-{site}-staging-install'

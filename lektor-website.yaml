@@ -55,7 +55,7 @@
             branches:
                 - staging
     builders:
-        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+        - shell: "SUITE=buster  ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:
         - archive:
             artifacts: "RESULT/output.tar.gz"
@@ -76,7 +76,7 @@
             which-build: "last-successful"
             flatten: true
             target: incoming
-        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
+        - shell: "cat incoming/output.tar.gz  | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
 
 
 - project:

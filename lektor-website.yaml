@@ -7,7 +7,7 @@
     node: Linux
     properties:
       - priority-sorter:
-            priority: 10
+            priority: 5
     scm:
         - git:
             url: '{giturl}'

@@ -140,6 +140,7 @@
 
 - job-template:
     name: 'lektor-website-{site}-any-install'
+    quiet-period: 0
     project-type: freestyle
     node: master
     scm: []

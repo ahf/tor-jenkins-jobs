@@ -112,6 +112,7 @@
 - job-template:
     name: 'lektor-website-{site}-any'
     project-type: freestyle
+    quiet-period: 0
     node: Linux
     properties:
       - priority-sorter:

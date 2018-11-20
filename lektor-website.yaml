@@ -106,3 +106,59 @@
     jobs:
       - 'lektor-website-{site}-staging'
       - 'lektor-website-{site}-staging-install'
+
+## arbitrary branches
+
+- job-template:
+    name: 'lektor-website-{site}-any'
+    project-type: freestyle
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 5
+    scm:
+        - git:
+            url: '{giturl}'
+            fastpoll: true
+            basedir: website
+            branches:
+                - ':^(?!(origin/master$)).*'
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/output.tar.gz"
+        - trigger:
+            project: 'lektor-website-{site}-any-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+- job-template:
+    name: 'lektor-website-{site}-any-install'
+    project-type: freestyle
+    node: master
+    scm: []
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: 'lektor-website-{site}-any'
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
+
+- project:
+    name: lektor-website-any
+    site:
+      - tor-browser-manual:
+          giturl: https://git.torproject.org/project/web/manual.git
+
+    jobs:
+      - 'lektor-website-{site}-any'
+      - 'lektor-website-{site}-any-install'

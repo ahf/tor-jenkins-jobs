@@ -430,6 +430,7 @@
     name: tor-ci-windows-commit
     project-type: freestyle
     node: windows
+    block-upstream: false
     parameters:
         - string:
             name: "COMMIT"

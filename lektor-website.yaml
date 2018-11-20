@@ -116,13 +116,18 @@
     properties:
       - priority-sorter:
             priority: 5
+    parameters:
+        - string:
+            name: "BRANCH"
+            description: "branch to build"
+            default: ':^(?!(origin/master$)).*'
     scm:
         - git:
             url: '{giturl}'
             fastpoll: true
             basedir: website
             branches:
-                - ':^(?!(origin/master$)).*'
+                - '${{BRANCH}}'
     builders:
         - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
     publishers:

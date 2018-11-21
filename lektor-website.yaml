@@ -165,6 +165,10 @@
     site:
       - tor-browser-manual:
           giturl: https://git.torproject.org/project/web/manual.git
+      - tpo:
+          giturl: https://git.torproject.org/project/web/tpo.git
+      - research:
+          giturl: https://git.torproject.org/research-web.git
 
     jobs:
       - 'lektor-website-{site}-any'

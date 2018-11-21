@@ -120,7 +120,7 @@
     parameters:
         - string:
             name: "BRANCH"
-            description: "branch to build"
+            description: "branch to build (e.g. 'staging'  (no quotes))"
             default: ':^(?!(origin/master$)).*'
     scm:
         - git:

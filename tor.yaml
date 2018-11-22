@@ -598,7 +598,6 @@
             type: label-expression
             name: SUITE
             values:
-                - wheezy
                 - jessie
                 - stretch
                 - buster
@@ -611,9 +610,9 @@
     execution-strategy:
         sequential: false
         combination-filter: '
-            ( ARCHITECTURE=="armel" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" || SUITE=="jessie" || SUITE=="wheezy" ) ) ||
+            ( ARCHITECTURE=="armel" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" || SUITE=="jessie" ) ) ||
             ( ARCHITECTURE=="armhf" ) ||
-            ( ARCHITECTURE=="arm64" && ( SUITE!="wheezy" ) )
+            ( ARCHITECTURE=="arm64" )
             '
     builders:
         - copyartifact:

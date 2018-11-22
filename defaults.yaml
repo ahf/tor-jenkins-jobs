@@ -61,7 +61,6 @@
             type: label-expression
             name: SUITE
             values:
-                - wheezy
                 - jessie
                 - stretch
                 - buster

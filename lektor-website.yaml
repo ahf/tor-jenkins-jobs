@@ -80,11 +80,11 @@
             branches:
                 - '${{BRANCH}}'
         - git:
-          url: 'https://git.torproject.org/translation.git'
-          fastpoll: true
-          basedir: translation
-          branches:
-            - support-portal
+            url: 'https://git.torproject.org/translation.git'
+            fastpoll: true
+            basedir: translation
+            branches:
+              - support-portal
 
 
     builders:
@@ -125,8 +125,14 @@
           giturl: https://git.torproject.org/project/web/manual.git
       - tpo:
           giturl: https://git.torproject.org/project/web/tpo.git
+      - newsletter:
+          giturl: https://git.torproject.org/project/web/newsletter.git
       - research:
           giturl: https://git.torproject.org/research-web.git
+      - styleguide:
+          giturl: https://git.torproject.org/project/web/styleguide.git
+      - support:
+          giturl: https://git.torproject.org/project/web/support.git
 
     jobs:
       - 'lektor-website-{site}-any'

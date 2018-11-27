@@ -79,6 +79,13 @@
             basedir: website
             branches:
                 - '${{BRANCH}}'
+        - git:
+          url: 'https://git.torproject.org/translation.git'
+          fastpoll: true
+          basedir: translation
+          branches:
+            - support-portal
+
 
     builders:
         - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"

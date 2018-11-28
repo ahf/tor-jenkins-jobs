@@ -79,12 +79,44 @@
             basedir: website
             branches:
                 - '${{BRANCH}}'
+
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/output.tar.gz"
+        - trigger:
+            project: 'lektor-website-{site}-any-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+
+- job-template:
+    name: 'lektor-website-{site}-translation-any'
+    project-type: freestyle
+    quiet-period: 0
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 5
+    parameters:
+        - string:
+            name: "BRANCH"
+            description: "branch to build (e.g. 'staging'  (no quotes))"
+            default: ':^(?!(origin/master$)).*'
+    scm:
+        - git:
+            url: '{giturl}'
+            fastpoll: true
+            basedir: website
+            branches:
+                - '${{BRANCH}}'
         - git:
             url: 'https://git.torproject.org/translation.git'
             fastpoll: true
             basedir: translation
             branches:
-              - support-portal
+              - '{translation-branch}'
 
 
     builders:
@@ -118,21 +150,31 @@
             target: incoming
         - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
 
+
 - project:
-    name: lektor-website-any
+    name: lektor-website-translation-any
     site:
       - tor-browser-manual:
           giturl: https://git.torproject.org/project/web/manual.git
-      - tpo:
-          giturl: https://git.torproject.org/project/web/tpo.git
+          translation-branch: 'tor-browser-manual'
+      - support:
+          giturl: https://git.torproject.org/project/web/support.git
+          translation-branch: 'support-portal'
+    jobs:
+      - 'lektor-website-{site}-locales-any'
+      - 'lektor-website-{site}-any-install'
+
+- project:
+    name: lektor-website-any
+    site:
       - newsletter:
           giturl: https://git.torproject.org/project/web/newsletter.git
       - research:
           giturl: https://git.torproject.org/research-web.git
       - styleguide:
           giturl: https://git.torproject.org/project/web/styleguide.git
-      - support:
-          giturl: https://git.torproject.org/project/web/support.git
+      - tpo:
+          giturl: https://git.torproject.org/project/web/tpo.git
 
     jobs:
       - 'lektor-website-{site}-any'

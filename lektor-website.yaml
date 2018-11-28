@@ -152,6 +152,28 @@
         - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
 
 
+- job-template:
+    name: 'lektor-website-{site}-translation-any-install'
+    quiet-period: 0
+    project-type: freestyle
+    node: master
+    scm: []
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: 'lektor-website-{site}-any'
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
+
+
 - project:
     name: lektor-website-translation-any
     site:
@@ -161,9 +183,10 @@
       - support:
           giturl: https://git.torproject.org/project/web/support.git
           translation-branch: 'support-portal'
+
     jobs:
       - 'lektor-website-{site}-translation-any'
-      - 'lektor-website-{site}-any-install'
+      - 'lektor-website-{site}-translation-any-install'
 
 - project:
     name: lektor-website-any

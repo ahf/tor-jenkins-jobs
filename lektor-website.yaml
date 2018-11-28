@@ -166,7 +166,7 @@
     builders:
         - shell: 'true'
         - copyartifact:
-            project: 'lektor-website-{site}-any'
+            project: 'lektor-website-{site}-translation-any'
             which-build: "build-param"
             param: "BUILD_SELECTOR"
             flatten: true

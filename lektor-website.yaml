@@ -161,7 +161,7 @@
           giturl: https://git.torproject.org/project/web/support.git
           translation-branch: 'support-portal'
     jobs:
-      - 'lektor-website-{site}-locales-any'
+      - 'lektor-website-{site}-translation-any'
       - 'lektor-website-{site}-any-install'
 
 - project:

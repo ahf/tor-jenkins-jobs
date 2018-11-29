@@ -45,16 +45,86 @@
     site:
       - newsletter:
           giturl: https://git.torproject.org/project/web/newsletter.git
-      - support:
-          giturl: https://git.torproject.org/project/web/support.git
       - styleguide:
           giturl: https://git.torproject.org/project/web/styleguide.git
-      - tor-browser-manual:
-          giturl: https://git.torproject.org/project/web/manual.git
 
     jobs:
       - 'lektor-website-{site}'
       - 'lektor-website-{site}-install'
+
+
+###############################################################
+### lektor websites with translation
+###############################################################
+- job-template:
+    name: 'lektor-website-{site}-translation'
+    project-type: freestyle
+    quiet-period: 0
+    node: Linux
+    properties:
+      - priority-sorter:
+            priority: 5
+    scm:
+        - git:
+            url: '{giturl}'
+            fastpoll: true
+            basedir: website
+            branches:
+                - 'master'
+        - git:
+            url: 'https://git.torproject.org/translation.git'
+            fastpoll: true
+            basedir: translation
+            branches:
+              - '{translation-branch}'
+
+
+    builders:
+        - shell: "SUITE=buster ARCHITECTURE=amd64 /home/jenkins/jenkins-tools/slaves/linux/build-wrapper"
+    publishers:
+        - archive:
+            artifacts: "RESULT/output.tar.gz"
+        - trigger:
+            project: 'lektor-website-{site}-translation-any-install'
+        - notify-tor-irc
+        - post-workspace-cleanup
+
+
+- job-template:
+    name: 'lektor-website-{site}-translation-install'
+    quiet-period: 0
+    project-type: freestyle
+    node: master
+    scm: []
+    parameters:
+        - copyartifact-build-selector:
+            name: "BUILD_SELECTOR"
+            description: "Upstream build to install"
+            which-build: "upstream-build"
+    builders:
+        - shell: 'true'
+        - copyartifact:
+            project: 'lektor-website-{site}-translation'
+            which-build: "build-param"
+            param: "BUILD_SELECTOR"
+            flatten: true
+            target: incoming
+        - shell: "cat incoming/output.tar.gz | ssh torwww@staticiforme.torproject.org lektor-website-{site}"
+
+
+- project:
+    name: lektor-website-translation
+    site:
+      - tor-browser-manual:
+          giturl: https://git.torproject.org/project/web/manual.git
+          translation-branch: 'tbmanual-contentspot'
+      - support:
+          giturl: https://git.torproject.org/project/web/support.git
+          translation-branch: 'support-portal'
+
+    jobs:
+      - 'lektor-website-{site}-translation'
+      - 'lektor-website-{site}-translation-install'
 
 
 ## arbitrary branches

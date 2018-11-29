@@ -85,7 +85,7 @@
         - archive:
             artifacts: "RESULT/output.tar.gz"
         - trigger:
-            project: 'lektor-website-{site}-translation-any-install'
+            project: 'lektor-website-{site}-translation-install'
         - notify-tor-irc
         - post-workspace-cleanup
 

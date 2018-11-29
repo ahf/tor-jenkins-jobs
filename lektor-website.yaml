@@ -179,7 +179,7 @@
     site:
       - tor-browser-manual:
           giturl: https://git.torproject.org/project/web/manual.git
-          translation-branch: 'tor-browser-manual'
+          translation-branch: 'tbmanual-contentspot'
       - support:
           giturl: https://git.torproject.org/project/web/support.git
           translation-branch: 'support-portal'

@@ -253,6 +253,9 @@
       - support:
           giturl: https://git.torproject.org/project/web/support.git
           translation-branch: 'support-portal'
+      - tpo:
+          giturl: https://git.torproject.org/project/web/tpo.git
+          translation-branch: 'tpo-web'
 
     jobs:
       - 'lektor-website-{site}-translation-any'
@@ -267,8 +270,6 @@
           giturl: https://git.torproject.org/research-web.git
       - styleguide:
           giturl: https://git.torproject.org/project/web/styleguide.git
-      - tpo:
-          giturl: https://git.torproject.org/project/web/tpo.git
 
     jobs:
       - 'lektor-website-{site}-any'

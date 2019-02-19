@@ -425,38 +425,38 @@
     builders:
         - shell: '~/jenkins-tools/slaves/other/build-wrapper'
 
-- job:
-    name: tor-ci-windows-commit
-    project-type: freestyle
-    node: windows
-    block-upstream: false
-    parameters:
-        - string:
-            name: "COMMIT"
-            description: "commit digest"
-    scm:
-        - git:
-            url: 'https://git.torproject.org/tor.git'
-            fastpoll: true
-            branches:
-                - '${COMMIT}'
-            basedir: tor
-    builders:
-        - copyartifact:
-            project: extern-windows-libevent
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-windows-openssl
-            which-build: "last-successful"
-        - copyartifact:
-            project: extern-windows-zlib
-            which-build: "last-successful"
-        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
-    publishers:
-        - archive:
-            artifacts: "RESULT.tor.tar.gz"
-        - notify-tor-irc
-        - post-workspace-cleanup
+#- job:
+#    name: tor-ci-windows-commit
+#    project-type: freestyle
+#    node: windows
+#    block-upstream: false
+#    parameters:
+#        - string:
+#            name: "COMMIT"
+#            description: "commit digest"
+#    scm:
+#        - git:
+#            url: 'https://git.torproject.org/tor.git'
+#            fastpoll: true
+#            branches:
+#                - '${COMMIT}'
+#            basedir: tor
+#    builders:
+#        - copyartifact:
+#            project: extern-windows-libevent
+#            which-build: "last-successful"
+#        - copyartifact:
+#            project: extern-windows-openssl
+#            which-build: "last-successful"
+#        - copyartifact:
+#            project: extern-windows-zlib
+#            which-build: "last-successful"
+#        - shell: '~/jenkins-tools/slaves/windows/build-wrapper'
+#    publishers:
+#        - archive:
+#            artifacts: "RESULT.tor.tar.gz"
+#        - notify-tor-irc
+#        - post-workspace-cleanup
 
 
 

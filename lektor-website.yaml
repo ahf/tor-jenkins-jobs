@@ -270,6 +270,8 @@
           giturl: https://git.torproject.org/research-web.git
       - styleguide:
           giturl: https://git.torproject.org/project/web/styleguide.git
+      - community:
+          giturl: https://git.torproject.org/project/web/community.git
 
     jobs:
       - 'lektor-website-{site}-any'

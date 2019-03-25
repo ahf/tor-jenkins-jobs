@@ -228,8 +228,8 @@
             type: label-expression
             name: SUITE
             values:
-                - jessie
                 - stretch
+                - buster
                 - sid
 
 - job-template:
@@ -610,7 +610,7 @@
         combination-filter: '
             ( ARCHITECTURE=="armel" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" || SUITE=="jessie" ) ) ||
             ( ARCHITECTURE=="armhf" ) ||
-            ( ARCHITECTURE=="arm64" )
+            ( ARCHITECTURE=="arm64" && ( SUITE=="sid" || SUITE=="buster" || SUITE=="stretch" ) )
             '
     builders:
         - copyartifact:

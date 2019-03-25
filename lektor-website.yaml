@@ -192,8 +192,6 @@
           giturl: https://git.torproject.org/research-web.git
       - styleguide:
           giturl: https://git.torproject.org/project/web/styleguide.git
-      - community:
-          giturl: https://git.torproject.org/project/web/community.git
 
     jobs:
       - 'lektor-website-{site}-any'
@@ -276,7 +274,10 @@
       - tpo:
           giturl: https://git.torproject.org/project/web/tpo.git
           translation-branch: 'tpo-web'
-
+      - community:
+          giturl: https://git.torproject.org/project/web/community.git
+          translation-branch: 'communitytpo-contentspot'
+          
     jobs:
       - 'lektor-website-{site}-translation-any'
       - 'lektor-website-{site}-translation-any-install'
